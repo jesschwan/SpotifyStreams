@@ -142,7 +142,7 @@ function vortag($filename) {
 <div class="form-container">
     <form method="get" style="display: flex; align-items: center; gap: 20px;">
         <label for="interpret">Interpret:</label>
-        <select name="interpret" id="interpret" class="dropdown" onchange="this.form.submit()">
+        <select name="interpret" id="interpret" class="dropdown">
             <?php
             foreach ($interpreten as $ordnerPfad) {
                 $ordner = basename($ordnerPfad);
@@ -160,34 +160,31 @@ function vortag($filename) {
                 foreach ($dateien as $datei) {
                     $basename = basename($datei);
                     $selected = ($basename === $ausgewaehltesDatum) ? "selected" : "";
-                    // Format date to TT.MM.JJJJ
                     $date = DateTime::createFromFormat('Y-m-d', pathinfo($basename, PATHINFO_FILENAME));
                     echo "<option value=\"$basename\" $selected>" . $date->format('d.m.Y') . "</option>";
                 }
                 ?>
             </select>
-            <button type="submit">Submit</button>
-        <?php else: ?>
-            <button type="submit">Submit</button>
         <?php endif; ?>
+        <button type="submit">Submit</button>
     </form>
 </div>
 
 <!-- Header with artist and date in long format -->
 <?php
 $h1 = "Spotify Streams";
-if (!empty($ausgewaehlterInterpret) && !empty($ausgewaehltesDatum)) {
+if (isset($_GET['interpret'], $_GET['datum'])) {
     $date = DateTime::createFromFormat('Y-m-d', pathinfo($ausgewaehltesDatum, PATHINFO_FILENAME));
     $h1 = "$ausgewaehlterInterpret – Spotify Streams – " . $date->format('d.m.Y');
 }
 echo "<h1>$h1</h1>";
 ?>
 
-<!-- Output table if valid CSV -->
+<!-- Output table only if BOTH interpret and datum are selected -->
 <?php
 $csvPfad = "$csvRoot/$ausgewaehlterInterpret/$ausgewaehltesDatum";
 
-if (file_exists($csvPfad)) {
+if (isset($_GET['interpret'], $_GET['datum']) && file_exists($csvPfad)) {
     echo "<table>";
     if (($handle = fopen($csvPfad, "r")) !== FALSE) {
         $ersteZeile = true;
