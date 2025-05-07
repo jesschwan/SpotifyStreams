@@ -170,20 +170,23 @@ function vortag($filename) {
     </form>
 </div>
 
-<!-- Header with artist and date in long format -->
-<?php
-$h1 = "Spotify Streams";
-if (isset($_GET['interpret'], $_GET['datum'])) {
-    $date = DateTime::createFromFormat('Y-m-d', pathinfo($ausgewaehltesDatum, PATHINFO_FILENAME));
-    $h1 = "$ausgewaehlterInterpret – Spotify Streams – " . $date->format('d.m.Y');
-}
-echo "<h1>$h1</h1>";
-?>
-
-<!-- Output table only if BOTH interpret and datum are selected -->
 <?php
 $csvPfad = "$csvRoot/$ausgewaehlterInterpret/$ausgewaehltesDatum";
+$showWarning = isset($_GET['interpret'], $_GET['datum']) && !file_exists($csvPfad);
 
+// Header with artist and date in long format (only if no warning)
+if (!$showWarning) {
+    $h1 = "Spotify Streams";
+    if (isset($_GET['interpret'], $_GET['datum'])) {
+        $date = DateTime::createFromFormat('Y-m-d', pathinfo($ausgewaehltesDatum, PATHINFO_FILENAME));
+        $h1 = "$ausgewaehlterInterpret – Spotify Streams – " . $date->format('d.m.Y');
+    }
+    echo "<h1>$h1</h1>";
+}
+?>
+
+<!-- Output table only if BOTH interpret and datum are selected and file exists -->
+<?php
 if (isset($_GET['interpret'], $_GET['datum']) && file_exists($csvPfad)) {
     echo "<table>";
     if (($handle = fopen($csvPfad, "r")) !== FALSE) {
@@ -208,8 +211,8 @@ if (isset($_GET['interpret'], $_GET['datum']) && file_exists($csvPfad)) {
         fclose($handle);
     }
     echo "</table>";
-} elseif (isset($_GET['datum'])) {
-    echo "<p>Datei nicht gefunden.</p>";
+} elseif ($showWarning) {
+    echo '<p class="warning">Keine Daten zu diesem Tag vorhanden!</p>';
 }
 ?>
 
