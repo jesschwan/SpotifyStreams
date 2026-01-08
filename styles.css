@@ -1,0 +1,41 @@
+/* General page styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 25px;
+    background-color: white;
+}
+
+/* Header styling */
+h1 {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    font-size: 45px;
+}
+
+/* Header 2 styling */
+h2 {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    font-size: 30px;
+}
+
+/* Table styling */
+table {
+    font-family: Arial, sans-serif;
+    margin: auto;
+    border-collapse: collapse;
+    width: auto;
+    color: black;
+    background: white;
+}
+
+th {
+    font-weight: bold;
+}
+
+th, td {
+    border: 2px solid black;
+    font-size: 30px;
+    text-align: center;
+}
