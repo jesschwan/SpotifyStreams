@@ -1,125 +1,127 @@
 <?php
-    // Pfad zu den CSVs
-    $csv_path = 'C:\xampp\htdocs\SpotifyStreams';
+// Pfad zu den CSVs
+$csv_path = 'C:\xampp\htdocs\SpotifyStreams';
 
-    // Liste der Künstler
-    $artists = ['One Direction', 'Harry Styles'];
+// Liste der Künstler (kann beliebig erweitert werden)
+$artists = ['One Direction', 'Harry Styles'];
 
-    // Standardwerte
-    $selected_artist = '';
+// Standardwerte
+$selected_artist = '';
+$date = null; // optional: manuelles Datumsauswahl
+$all_record_arr = [];
+
+/**
+ * Liest aktuelle CSV-Daten eines Künstlers ein, berechnet Differenzen zum Vortag und Rank-Veränderungen
+ * 
+ * @param string $csv_path Pfad zu den CSV-Dateien
+ * @param string $artist Künstlername
+ * @param string|null $date optionales Datum im Format YYYY-MM-DD
+ * @return array ['data'=>[], 'display_date'=>'', 'previous_date'=>'', 'available_dates'=>[]]
+ */
+function getCurrentArtistStats(string $csv_path, string $artist, ?string $date = null) {
+    $today_data = [];
+    $previous_data = [];
     $all_record_arr = [];
 
-    // Prüfen, ob das Formular abgesendet wurde
-    if (isset($_POST['interpretDropdown']) && in_array($_POST['interpretDropdown'], $artists)) {
-        $selected_artist = $_POST['interpretDropdown'];
+    // Alle CSV-Dateien für den Künstler finden
+    $files = glob($csv_path . DIRECTORY_SEPARATOR . "$artist *.csv");
+    if (!$files) return [
+        'data' => [],
+        'display_date' => '',
+        'previous_date' => '',
+        'available_dates' => []
+    ];
 
-        // CSV-Dateien für den Künstler finden
-        $files = glob($csv_path . DIRECTORY_SEPARATOR . "$selected_artist *.csv");
+    // Dateien nach Datum sortieren (neueste zuerst)
+    usort($files, fn($a,$b) => strtotime(substr($b,-14,10)) - strtotime(substr($a,-14,10)));
 
-        if (!empty($files)) {
-            // Die neueste Datei anhand des Datums im Dateinamen auswählen
-            usort($files, function($a, $b) {
-                preg_match('/(\d{4}-\d{2}-\d{2})\.csv$/', $a, $matchA);
-                preg_match('/(\d{4}-\d{2}-\d{2})\.csv$/', $b, $matchB);
-                return strtotime($matchB[1]) - strtotime($matchA[1]);
-            });
+    // Alle verfügbaren Daten für Datum-Dropdown
+    $available_dates = array_map(fn($f) => substr($f,-14,10), $files);
 
-            $latest_file = $files[0];
-            preg_match('/(\d{4}-\d{2}-\d{2})\.csv$/', $latest_file, $date_match);
-            $display_date = date('d/m/Y', strtotime($date_match[1]));
+    // Gewähltes Datum oder neueste CSV
+    $selected_file = $date ? $csv_path . DIRECTORY_SEPARATOR . "$artist $date.csv" : $files[0];
+    $display_date  = date('d/m/Y', strtotime(substr($selected_file,-14,10)));
 
-            // CSV einlesen
-            if (($handle = fopen($latest_file, 'r')) !== FALSE) {
-                // Kopfzeile überspringen
-                fgetcsv($handle, 1000, ",");
+    // Vorherige CSV (falls vorhanden)
+    $previous_file_index = array_search($selected_file, $files);
+    $previous_file = $previous_file_index !== false && isset($files[$previous_file_index + 1])
+        ? $files[$previous_file_index + 1]
+        : null;
+    $previous_date = $previous_file ? date('d/m/Y', strtotime(substr($previous_file,-14,10))) : '';
 
-                while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                    $all_record_arr[] = $data;
-                }
-
-                fclose($handle);
-            }
+    // Heute einlesen
+    if (($handle = fopen($selected_file,'r')) !== FALSE) {
+        fgetcsv($handle); // Kopfzeile überspringen
+        while (($row = fgetcsv($handle)) !== FALSE) {
+            $today_data[$row[1]] = $row; // nach Titel indexieren
         }
+        fclose($handle);
     }
 
-    function getDataFromPreviousDate(string $csv_path, string $artist){
-        $today_data = [];
-        $previous_data = [];
-        $display_date = '';
-        $previous_date = '';
+    // Vortag einlesen
+    if ($previous_file && ($handle = fopen($previous_file,'r')) !== FALSE) {
+        fgetcsv($handle); // Kopfzeile überspringen
+        while (($row = fgetcsv($handle)) !== FALSE) {
+            $previous_data[$row[1]] = $row;
+        }
+        fclose($handle);
+    }
 
-        // Alle CSV-Dateien für den Künstler
-        $files = glob($csv_path . DIRECTORY_SEPARATOR . $artist . ' *.csv');
-        if (!$files) return ['data' => [], 'display_date' => '', 'previous_date' => ''];
+    // Kombinierte Daten vorbereiten
+    foreach ($today_data as $song => $row) {
+        $prev = $previous_data[$song] ?? [0, $song, 0, 0]; // default falls kein Vortag
 
-        // Dateien nach Datum sortieren
-        usort($files, fn ($a, $b) => strtotime(substr($b, -14, 10)) - strtotime(substr($a, -14, 10)));
+        // Zahlen-Spalten parsen
+        $rank = (int)$row[0];
+        $streams_today = (int) str_replace('.', '', $row[2]);
+        $daily_today   = (int) str_replace('.', '', $row[3]);
+        $streams_prev  = (int) str_replace('.', '', $prev[2]);
+        $daily_prev    = (int) str_replace('.', '', $prev[3]);
+        $rank_prev     = (int)$prev[0];
 
-        // Neueste CSV = heute
-        $latest_file = $files[0];
-        $display_date = date('d/m/Y', strtotime(substr($latest_file, -14, 10)));
-
-        // Vorherige CSV (falls vorhanden)
-        $previous_file = $files[1] ?? null;
-        if ($previous_file){
-            $previous_date = date('d/m/Y', strtotime(substr($previous_file, -14, 10)));
+        // Rank-Veränderung berechnen
+        if ($rank_prev === 0) {
+            $rank_change = 'neu';
+        } elseif ($rank < $rank_prev) {
+            $rank_change = '↑';
+        } elseif ($rank > $rank_prev) {
+            $rank_change = '↓';
+        } else {
+            $rank_change = '–';
         }
 
-        // Heute einlesen
-        if (($handle = fopen($latest_file, 'r')) !== FALSE) {
-            fgetcsv($handle); // Kopfzeile überspringen
-            while (($row = fgetcsv($handle)) !== FALSE) {
-                $today_data[$row[1]] = $row; // Index nach Songtitel
-            }
-            fclose($handle);
-        }
-
-        // Vortag einlesen
-        if ($previous_file && ($handle = fopen($previous_file, 'r')) !== FALSE) {
-            fgetcsv($handle); // Kopfzeile überspringen
-            while (($row = fgetcsv($handle)) !== FALSE) {
-                $previous_data[$row[1]] = $row; // Index nach Songtitel
-            }
-            fclose($handle);
-        }
-
-        // Kombinierte Daten vorbereiten
-        $all_record_arr = [];
-        foreach ($today_data as $song => $row) {
-            $prev = $previous_data[$song] ?? [0, $song, 0, 0]; // Default falls kein Vortag
-
-            // Alle Zahlen-Spalten parsen (Rank, Streams, Daily, Streams Prev, Daily Prev)
-            $rank = (int)$row[0];
-            $streams_today = (int) str_replace('.', '', $row[2]);
-            $daily_today   = (int) str_replace('.', '', $row[3]);
-            $streams_prev  = (int) str_replace('.', '', $prev[2]);
-            $daily_prev    = (int) str_replace('.', '', $prev[3]);
-
-            $all_record_arr[] = [
-                $rank,                        // Rank → int
-                $row[1],                      // Titel → string
-                $streams_today,               // Streams → int
-                $daily_today,                 // Daily → int
-                $streams_prev,                // Streams Vortag → int
-                $streams_today - $streams_prev, // Diff. Streams
-                $daily_prev,                  // Daily Vortag → int
-                $daily_today - $daily_prev    // Diff. Daily
-            ];
-        }
-
-        return [
-            'data' => $all_record_arr,
-            'display_date' => $display_date,
-            'previous_date' => $previous_date
+        $all_record_arr[] = [
+            $rank,
+            $row[1],
+            $streams_today,
+            $daily_today,
+            $streams_prev,
+            $streams_today - $streams_prev,
+            $daily_prev,
+            $daily_today - $daily_prev,
+            $rank_change
         ];
     }
 
-    $spotifyData = getDataFromPreviousDate($csv_path, $selected_artist);
+    return [
+        'data' => $all_record_arr,
+        'display_date' => $display_date,
+        'previous_date' => $previous_date,
+        'available_dates' => $available_dates
+    ];
+}
 
-    // Daten für die Tabelle
+// Wenn Formular abgesendet
+if (isset($_POST['interpretDropdown'])) {
+    $selected_artist = $_POST['interpretDropdown'];
+    $date = $_POST['dateDropdown'] ?? null;
+    $spotifyData = getCurrentArtistStats($csv_path, $selected_artist, $date);
+
     $all_record_arr = $spotifyData['data'];
     $display_date   = $spotifyData['display_date'];
     $previous_date  = $spotifyData['previous_date'];
+    $available_dates = $spotifyData['available_dates'];
+}
 ?>
 
 <html>
@@ -128,48 +130,78 @@
     <title>Spotify Top Songs</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
     <h1>Spotify Top Songs</h1>
 
+    <!-- Künstler-Auswahl -->
     <div class="form-container">
-        <form method="post" class="form-container">
-            <label for="interpretDropdown">Wähle:</label>
-            <select name="interpretDropdown" id="interpretDropdown" class="dropdown">
+        <form method="post">
+            <label for="interpretDropdown">Künstler wählen:</label>
+            <select name="interpretDropdown" id="interpretDropdown">
                 <option value="">-- Bitte wählen --</option>
-                <?php foreach ($artists as $artist): ?>
-                    <option value="<?= $artist ?>" <?= $artist === $selected_artist ? 'selected' : '' ?>>
-                        <?= $artist ?>
+                <?php foreach($artists as $artist): ?>
+                    <option value="<?= htmlspecialchars($artist) ?>" <?= $artist === $selected_artist ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($artist) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
-            <button type="submit" class="button-submit">Submit</button>
+            <button type="submit">Künstler auswählen</button>
         </form>
     </div>
 
-    <?php if ($selected_artist && !empty($all_record_arr)): ?>
-        <h2><?= htmlspecialchars($selected_artist) ?> - <?= $display_date ?></h2>
+    <!-- Datumsauswahl, nur wenn Künstler gewählt -->
+    <?php if ($selected_artist && !empty($available_dates)): ?>
+        <div class="form-container">
+            <form method="post">
+                <input type="hidden" name="interpretDropdown" value="<?= htmlspecialchars($selected_artist) ?>">
+                <label for="dateDropdown">Datum wählen:</label>
+                <select name="dateDropdown" id="dateDropdown">
+                    <?php foreach ($available_dates as $d): ?>
+                        <option value="<?= $d ?>" <?= ($date === $d) ? 'selected' : '' ?>>
+                            <?= date('d/m/Y', strtotime($d)) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="submit">Datum anzeigen</button>
+            </form>
+        </div>
+    <?php endif; ?>
+
+    <!-- Tabelle anzeigen -->
+    <?php if (!empty($all_record_arr)): ?>
+        <h2><?= htmlspecialchars($selected_artist) ?> – <?= $display_date ?></h2>
         <table>
             <thead>
-                <tr><th>Rank</th><th>Titel</th><th>Streams</th><th>Daily</th><th>Streams <?= $previous_date ?></th><th>Diff. Streams</th><th>Daily <?= $previous_date ?></th><th>Diff. Daily</th></tr>
+                <tr>
+                    <th>Rank</th>
+                    <th>Titel</th>
+                    <th>Streams</th>
+                    <th>Daily</th>
+                    <th>Streams <?= $previous_date ?></th>
+                    <th>Diff. Streams</th>
+                    <th>Daily <?= $previous_date ?></th>
+                    <th>Diff. Daily</th>
+                    <th>Veränderung Rank</th>
+                </tr>
             </thead>
             <tbody>
                 <?php foreach($all_record_arr as $rec): ?>
                     <tr>
-                        <td><?= htmlspecialchars($rec[0]) ?></td>
+                        <td><?= $rec[0] ?></td>
                         <td><?= htmlspecialchars($rec[1]) ?></td>
-                        <td><?= htmlspecialchars($rec[2]) ?></td>
-                        <td><?= htmlspecialchars($rec[3]) ?></td>
-                        <td><?= htmlspecialchars($rec[4]) ?></td>
-                        <td><?= htmlspecialchars($rec[5]) ?></td>
-                        <td><?= htmlspecialchars($rec[6]) ?></td>
-                        <td><?= htmlspecialchars($rec[7]) ?></td>
+                        <td><?= number_format($rec[2],0,',','.') ?></td>
+                        <td><?= number_format($rec[3],0,',','.') ?></td>
+                        <td><?= number_format($rec[4],0,',','.') ?></td>
+                        <td class="<?= $rec[5] < 0 ? 'negativ' : 'positiv' ?>"><?= number_format($rec[5],0,',','.') ?></td>
+                        <td><?= number_format($rec[6],0,',','.') ?></td>
+                        <td class="<?= $rec[7] < 0 ? 'negativ' : 'positiv' ?>"><?= number_format($rec[7],0,',','.') ?></td>
+                        <td><?= htmlspecialchars($rec[8]) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php elseif ($selected_artist): ?>
-        <p>Keine CSV-Datei für <?= htmlspecialchars($selected_artist) ?> gefunden.</p>
+        <p>Keine Daten für <?= htmlspecialchars($selected_artist) ?> gefunden.</p>
     <?php endif; ?>
 </body>
 </html>
