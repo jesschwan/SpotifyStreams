@@ -52,6 +52,8 @@ if (isset($_POST['interpretDropdown']) && in_array($_POST['interpretDropdown'], 
 </head>
 
 <body>
+    <h1>Spotify Top Songs</h1>
+
     <div class="form-container">
         <form method="post" class="form-container">
             <label for="interpretDropdown">Wähle:</label>
@@ -68,7 +70,6 @@ if (isset($_POST['interpretDropdown']) && in_array($_POST['interpretDropdown'], 
     </div>
 
     <?php if ($selected_artist && !empty($all_record_arr)): ?>
-        <h1>Spotify Top Songs</h1>
         <h2><?= htmlspecialchars($selected_artist) ?> - <?= $display_date ?></h2>
         <table>
             <thead>
