@@ -85,39 +85,20 @@ table td:nth-child(4), table th:nth-child(4) {
 }
 
 .dropdown, .button-submit, label {
-    font-size: 30px;
-    font-family: Arial;
     color: black;
     height: 50px;
     padding: 0 20px;
-}
-
-.dropdown, .button-submit {
     cursor: pointer;
-}
-
-.button-submit, label {
-   font-weight: bold;
-}
-
-.dropdown, label {
-    background-color: white;
-}
-
-.dropdown {
-    border: 1px solid black;
-}
-
-.button-submit {
-    background-color: #b4b4b4;
-    border: 2px solid black;
-}
-
-label {
     font-weight: bold;
-    color: black;
+    font-size: 30px;
+    background-color: white;
     font-family: Arial;
     display: flex;
     align-items: center;
-    height: 50px;
+}
+
+.dropdown, .button-submit {
+    border: 2px solid black;
+    font-weight: bold;
+    font-size: 30px;
 }
