@@ -145,7 +145,7 @@ if (isset($_POST['interpretDropdown'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify Top Songs</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=999">
 </head>
 <body>
 
