@@ -1,4 +1,4 @@
-/* General page styling */
+/* Allgemeine Seite */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -6,17 +6,11 @@ body {
     background-color: white;
 }
 
-/* Header styling */
+/* Header */
 h1 {
-    font-family: Arial, sans-serif;
-    text-align: center;
     font-size: 45px;
 }
-
-/* Header 2 styling */
 h2 {
-    font-family: Arial, sans-serif;
-    text-align: center;
     font-size: 45px;
     position: sticky;
     top: 0;
@@ -27,14 +21,11 @@ h2 {
     z-index: 10;
 }
 
-/* Table styling */
+/* Tabelle */
 table {
-    font-family: Arial, sans-serif;
     font-size: 30px;
     margin: auto;
     border-collapse: collapse;
-    width: auto;
-    color: black;
     background: white;
 }
 
@@ -42,63 +33,65 @@ th, td {
     border: 2px solid black;
     padding: 10px;
 }
-
-td {
-    height: 10px;
-    width: auto;
-}
-
 th {
     background-color: #40ff47;
-    color: black;
     position: sticky;
     top: 55px;
-    padding: 10px;
     z-index: 10;
 }
 
-/* 1. Spalte (Rank) in allen Tabellen formatieren */
-table td:nth-child(1), table th:nth-child(1) {
-    text-align: center;
-    color: black;
-    background-color: #40ff47;
-    font-weight: bold;
-}
-
-/* 2. Spalte (Titel) in allen Tabellen formatieren */
-table td:nth-child(2), table th:nth-child(2) {
-    text-align: left;
-}
-
-/* 3. Spalte (Streams) und 4. Spalte (Daily) in allen Tabellen formatieren */
-table td:nth-child(3), table th:nth-child(3),
-table td:nth-child(4), table th:nth-child(4) {
-    text-align: left;
-}
-
-/* Form styling */
+/* Form Styling */
 .form-container {
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    justify-content: center;   /* zentriert die Gruppe */
+    align-items: center;       /* vertikale Ausrichtung */
+    gap: 10px;                 /* Abstand zwischen Label, Dropdown und Button */
     margin-bottom: 30px;
 }
 
-.dropdown, .button-submit, label {
-    color: black;
-    height: 50px;
-    padding: 0 20px;
-    cursor: pointer;
+/* Label */
+label {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
     font-weight: bold;
-    font-size: 30px;
-    background-color: white;
-    font-family: Arial;
-    display: flex;
-    align-items: center;
+    text-align: center;
 }
 
-.dropdown, .button-submit {
+/* Dropdown */
+select.dropdown {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    text-align-last: center; /* Text zentriert im Dropdown */
     border: 2px solid black;
-    font-weight: bold;
-    font-size: 30px;
+    padding: 5px 10px;
+    cursor: pointer;
+
+    /* Browser Reset */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    background-color: white;  /* Hintergrund explizit */
 }
+
+/* Button */
+button.button-submit {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    text-align: center;
+    border: 2px solid black;
+    background-color: #b4b4b4;
+    padding: 5px 15px;
+    cursor: pointer;
+
+    /* Browser Reset */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Tabelle positive / negative Differenzen */
+.positiv { color: green; }
+.negativ { color: red; }
