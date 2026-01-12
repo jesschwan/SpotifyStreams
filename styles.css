@@ -12,7 +12,7 @@ h1 {
 }
 
 h2 {
-    font-size: 45px;
+    font-size: 40px;
     position: sticky;
     top: 0;
     border-bottom: 1px solid lightgrey;
@@ -28,6 +28,16 @@ table {
     margin: auto;
     border-collapse: collapse;
     background: white;
+}
+
+/* Default: all cells centered */
+table td {
+    text-align: center;
+}
+
+/* Second column in tbody (data rows) left-aligned */
+table tbody td:nth-child(2) {
+    text-align: left;
 }
 
 th,
@@ -60,7 +70,7 @@ th {
 /* Label */
 label {
     font-family: Arial, sans-serif;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bold;
     text-align: center;
 }
@@ -68,9 +78,9 @@ label {
 /* Dropdown */
 select.dropdown {
     font-family: Arial, sans-serif;
-    font-size: 20px;
+    font-size: 30px;
     text-align-last: center;
-    border: 2px solid black;
+    border: 3px solid black;
     padding: 5px 10px;
     background-color: white;
     cursor: pointer;
@@ -82,9 +92,10 @@ select.dropdown {
 /* Button */
 button.button-submit {
     font-family: Arial, sans-serif;
-    font-size: 20px;
+    font-size: 30px;
+    font-weight: bold;
     text-align: center;
-    border: 2px solid black;
+    border: 3px solid black;
     background-color: #b4b4b4;
     padding: 5px 15px;
     cursor: pointer;
