@@ -217,11 +217,19 @@ if (isset($_POST['interpretDropdown'])) {
                         <td><?= is_numeric($rec[2]) ? number_format($rec[2],0,',','.') : $rec[2] ?></td>
                         <td><?= is_numeric($rec[3]) ? number_format($rec[3],0,',','.') : $rec[3] ?></td>
                         <td><?= is_numeric($rec[4]) ? number_format($rec[4],0,',','.') : $rec[4] ?></td>
-                        <td class="<?= is_numeric($rec[5]) && $rec[5] < 0 ? 'negativ' : 'positiv' ?>">
+                        <td class="<?php
+                            if (is_numeric($rec[5])) {
+                                echo $rec[5] > 0 ? 'positiv' : ($rec[5] < 0 ? 'negativ' : '');
+                            }
+                        ?>">
                             <?= is_numeric($rec[5]) ? number_format($rec[5],0,',','.') : $rec[5] ?>
                         </td>
                         <td><?= is_numeric($rec[6]) ? number_format($rec[6],0,',','.') : $rec[6] ?></td>
-                        <td class="<?= is_numeric($rec[7]) && $rec[7] < 0 ? 'negativ' : 'positiv' ?>">
+                        <td class="<?php
+                            if (is_numeric($rec[7])) {
+                                echo $rec[7] > 0 ? 'positiv' : ($rec[7] < 0 ? 'negativ' : '');
+                            }
+                        ?>">
                             <?= is_numeric($rec[7]) ? number_format($rec[7],0,',','.') : $rec[7] ?>
                         </td>
                         <td><?= htmlspecialchars($rec[8]) ?></td>
@@ -232,5 +240,6 @@ if (isset($_POST['interpretDropdown'])) {
     <?php elseif ($selected_artist && $date): ?>
         <p>Keine Daten für <?= htmlspecialchars($selected_artist) ?> am <?= date('d/m/Y', strtotime($date)) ?> gefunden.</p>
     <?php endif; ?>
+
 </body>
 </html>
