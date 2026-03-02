@@ -29,7 +29,7 @@ function getCurrentArtistStats(string $csv_path, string $artist, ?string $date =
     $all_record_arr = [];
 
     // Alle CSV-Dateien für den Künstler
-    $files = glob($csv_path . DIRECTORY_SEPARATOR . "$artist *.csv");
+        $files = glob($csv_path . DIRECTORY_SEPARATOR . "$artist *.csv");
     if (!$files) return [
         'data' => [],
         'display_date' => '',
