@@ -29,7 +29,7 @@ function getCurrentArtistStats(string $csv_path, string $artist, ?string $date =
     $all_record_arr = [];
 
     // Alle CSV-Dateien für den Künstler
-        $files = glob($csv_path . DIRECTORY_SEPARATOR . "$artist *.csv");
+    $files = glob($csv_path . DIRECTORY_SEPARATOR . "$artist *.csv");
     if (!$files) return [
         'data' => [],
         'display_date' => '',
@@ -37,12 +37,21 @@ function getCurrentArtistStats(string $csv_path, string $artist, ?string $date =
         'available_dates' => []
     ];
 
+    // Sortieren nach Datum (neueste zuerst)
     usort($files, fn($a,$b) => strtotime(substr($b,-14,10)) - strtotime(substr($a,-14,10)));
     $available_dates = array_map(fn($f) => substr($f,-14,10), $files);
 
+    // Gewünschte Datei auswählen (Datum oder neueste)
     $selected_file = $date ? $csv_path . DIRECTORY_SEPARATOR . "$artist $date.csv" : $files[0];
+
+    // Fallback: wenn Datei leer oder nicht existent, auf älteste existierende Datei zurückgreifen
+    if (!file_exists($selected_file) || filesize($selected_file) <= 0) {
+        $selected_file = end($files);
+    }
+
     $display_date  = date('d/m/Y', strtotime(substr($selected_file,-14,10)));
 
+    // Vortag ermitteln
     $previous_file_index = array_search($selected_file, $files);
     $previous_file = $previous_file_index !== false && isset($files[$previous_file_index + 1])
         ? $files[$previous_file_index + 1]
@@ -51,23 +60,37 @@ function getCurrentArtistStats(string $csv_path, string $artist, ?string $date =
 
     // Heute einlesen
     if (($handle = fopen($selected_file,'r')) !== FALSE) {
-        fgetcsv($handle);
+        fgetcsv($handle); // Header überspringen
         while (($row = fgetcsv($handle)) !== FALSE) {
-            $today_data[$row[1]] = $row; // nach Titel indexieren
+            $row = array_map('trim', $row); // alle Werte trimmen
+            // nur Zeilen übernehmen, die Rank, Title, Streams und Daily haben und Rank numerisch ist
+            if (!isset($row[0], $row[1], $row[2], $row[3]) ||
+                $row[0] === '' || $row[1] === '' || $row[2] === '' || $row[3] === '' ||
+                !is_numeric($row[0])
+            ) continue;
+
+            $today_data[$row[1]] = $row; // indexiert nach Songtitel
         }
         fclose($handle);
     }
 
     // Vortag einlesen
     if ($previous_file && ($handle = fopen($previous_file,'r')) !== FALSE) {
-        fgetcsv($handle);
+        fgetcsv($handle); // Header überspringen
         while (($row = fgetcsv($handle)) !== FALSE) {
+            $row = array_map('trim', $row); // alle Werte trimmen
+            // nur Zeilen übernehmen, die Rank, Title, Streams und Daily haben und Rank numerisch ist
+            if (!isset($row[0], $row[1], $row[2], $row[3]) ||
+                $row[0] === '' || $row[1] === '' || $row[2] === '' || $row[3] === '' ||
+                !is_numeric($row[0])
+            ) continue;
+
             $previous_data[$row[1]] = $row;
         }
         fclose($handle);
     }
 
-    // Kombinierte Daten vorbereiten
+    // Daten zusammenführen und Differenzen berechnen
     foreach ($today_data as $song => $row) {
         $prev = $previous_data[$song] ?? null;
 
