@@ -1,6 +1,6 @@
 <?php
 // Pfad zu den CSVs
-$csv_path = 'C:\xampp\htdocs\SpotifyStreams';
+$csv_path = 'C:/xampp/htdocs/SpotifyStreams';
 
 // Alle Künstler automatisch ermitteln
 $artists = [];
@@ -20,6 +20,31 @@ $selected_artist = '';
 $date = null;
 $all_record_arr = [];
 
+// Hilfsfunktion: neueste CSV mit echten Daten auswählen
+function selectLatestCsvWithData(array $files): ?string {
+    foreach ($files as $f) {
+        if (!file_exists($f) || filesize($f) <= 0) continue;
+
+        $handle = fopen($f, 'r');
+        fgetcsv($handle); // Header überspringen
+        $hasData = false;
+
+        while (($row = fgetcsv($handle)) !== false) {
+            $row = array_map('trim', $row);
+            // Prüfen, ob mindestens Rank und Songtitel vorhanden
+            if (!empty($row[1]) && is_numeric($row[0])) {
+                $hasData = true;
+                break;
+            }
+        }
+
+        fclose($handle);
+
+        if ($hasData) return $f; // Erste Datei mit Daten zurückgeben
+    }
+    return null;
+}
+
 /**
  * Liest aktuelle CSV-Daten eines Künstlers ein, berechnet Differenzen zum Vortag und Rank-Veränderungen
  */
@@ -29,7 +54,7 @@ function getCurrentArtistStats(string $csv_path, string $artist, ?string $date =
     $all_record_arr = [];
 
     // Alle CSV-Dateien für den Künstler
-    $files = glob($csv_path . DIRECTORY_SEPARATOR . "$artist *.csv");
+    $files = glob($csv_path . DIRECTORY_SEPARATOR . preg_replace('/[\/:*?"<>|]/', '', $artist) . ' *.csv');
     if (!$files) return [
         'data' => [],
         'display_date' => '',
@@ -39,14 +64,37 @@ function getCurrentArtistStats(string $csv_path, string $artist, ?string $date =
 
     // Sortieren nach Datum (neueste zuerst)
     usort($files, fn($a,$b) => strtotime(substr($b,-14,10)) - strtotime(substr($a,-14,10)));
-    $available_dates = array_map(fn($f) => substr($f,-14,10), $files);
 
-    // Gewünschte Datei auswählen (Datum oder neueste)
-    $selected_file = $date ? $csv_path . DIRECTORY_SEPARATOR . "$artist $date.csv" : $files[0];
+    // Gewünschte Datei auswählen (Datum oder neueste mit echten Daten)
+    if ($date) {
+        $selected_file = $csv_path . DIRECTORY_SEPARATOR . "$artist $date.csv";
+    } else {
+        $selected_file = selectLatestCsvWithData($files);
+        if (!$selected_file) {
+            return [
+                'data' => [],
+                'display_date' => '',
+                'previous_date' => '',
+                'available_dates' => []
+            ];
+        }
+    }
 
-    // Fallback: wenn Datei leer oder nicht existent, auf älteste existierende Datei zurückgreifen
-    if (!file_exists($selected_file) || filesize($selected_file) <= 0) {
-        $selected_file = end($files);
+    // Verfügbare Daten für Dropdown (nur echte Daten)
+    $available_dates = [];
+    foreach ($files as $f) {
+        $handle = fopen($f,'r');
+        fgetcsv($handle); // Header überspringen
+        $hasData = false;
+        while (($row = fgetcsv($handle)) !== false) {
+            $row = array_map('trim', $row);
+            if (!empty($row[1]) && is_numeric($row[0])) {
+                $hasData = true;
+                break;
+            }
+        }
+        fclose($handle);
+        if ($hasData) $available_dates[] = substr($f,-14,10);
     }
 
     $display_date  = date('d/m/Y', strtotime(substr($selected_file,-14,10)));
@@ -61,14 +109,13 @@ function getCurrentArtistStats(string $csv_path, string $artist, ?string $date =
     // Heute einlesen
     if (($handle = fopen($selected_file,'r')) !== FALSE) {
         fgetcsv($handle); // Header überspringen
-        while (($row = fgetcsv($handle)) !== FALSE) {
-            $row = array_map('trim', $row); // alle Werte trimmen
-            // nur Zeilen übernehmen, die Rank, Title, Streams und Daily haben und Rank numerisch ist
-            if (!isset($row[0], $row[1], $row[2], $row[3]) ||
-                $row[0] === '' || $row[1] === '' || $row[2] === '' || $row[3] === '' ||
-                !is_numeric($row[0])
-            ) continue;
 
+        // DEBUG: Prüfen, ob die CSV geladen wird
+        echo "<p>CSV geladen: $selected_file</p>";
+
+        while (($row = fgetcsv($handle)) !== FALSE) {
+            $row = array_map('trim', $row);
+            if (!isset($row[0], $row[1], $row[2], $row[3])) continue;
             $today_data[$row[1]] = $row; // indexiert nach Songtitel
         }
         fclose($handle);
@@ -78,13 +125,8 @@ function getCurrentArtistStats(string $csv_path, string $artist, ?string $date =
     if ($previous_file && ($handle = fopen($previous_file,'r')) !== FALSE) {
         fgetcsv($handle); // Header überspringen
         while (($row = fgetcsv($handle)) !== FALSE) {
-            $row = array_map('trim', $row); // alle Werte trimmen
-            // nur Zeilen übernehmen, die Rank, Title, Streams und Daily haben und Rank numerisch ist
-            if (!isset($row[0], $row[1], $row[2], $row[3]) ||
-                $row[0] === '' || $row[1] === '' || $row[2] === '' || $row[3] === '' ||
-                !is_numeric($row[0])
-            ) continue;
-
+            $row = array_map('trim', $row);
+            if (!isset($row[0], $row[1], $row[2], $row[3])) continue;
             $previous_data[$row[1]] = $row;
         }
         fclose($handle);
@@ -150,7 +192,6 @@ if (isset($_POST['interpretDropdown'])) {
 
     if ($date) {
         $spotifyData = getCurrentArtistStats($csv_path, $selected_artist, $date);
-
         $all_record_arr = $spotifyData['data'];
         $display_date   = $spotifyData['display_date'];
         $previous_date  = $spotifyData['previous_date'];
@@ -164,15 +205,6 @@ if (isset($_POST['interpretDropdown'])) {
 
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify Top Songs</title>
-    <link rel="stylesheet" href="styles.css?v=999">
-</head>
-<body>
-
-<html>
 <head>
     <meta charset="UTF-8">
     <title>Spotify Top Songs</title>
@@ -240,19 +272,11 @@ if (isset($_POST['interpretDropdown'])) {
                         <td><?= is_numeric($rec[2]) ? number_format($rec[2],0,',','.') : $rec[2] ?></td>
                         <td><?= is_numeric($rec[3]) ? number_format($rec[3],0,',','.') : $rec[3] ?></td>
                         <td><?= is_numeric($rec[4]) ? number_format($rec[4],0,',','.') : $rec[4] ?></td>
-                        <td class="<?php
-                            if (is_numeric($rec[5])) {
-                                echo $rec[5] > 0 ? 'positiv' : ($rec[5] < 0 ? 'negativ' : '');
-                            }
-                        ?>">
+                        <td class="<?php if(is_numeric($rec[5])) echo $rec[5] > 0 ? 'positiv' : ($rec[5] < 0 ? 'negativ' : '') ?>">
                             <?= is_numeric($rec[5]) ? number_format($rec[5],0,',','.') : $rec[5] ?>
                         </td>
                         <td><?= is_numeric($rec[6]) ? number_format($rec[6],0,',','.') : $rec[6] ?></td>
-                        <td class="<?php
-                            if (is_numeric($rec[7])) {
-                                echo $rec[7] > 0 ? 'positiv' : ($rec[7] < 0 ? 'negativ' : '');
-                            }
-                        ?>">
+                        <td class="<?php if(is_numeric($rec[7])) echo $rec[7] > 0 ? 'positiv' : ($rec[7] < 0 ? 'negativ' : '') ?>">
                             <?= is_numeric($rec[7]) ? number_format($rec[7],0,',','.') : $rec[7] ?>
                         </td>
                         <td><?= htmlspecialchars($rec[8]) ?></td>
@@ -263,6 +287,5 @@ if (isset($_POST['interpretDropdown'])) {
     <?php elseif ($selected_artist && $date): ?>
         <p>Keine Daten für <?= htmlspecialchars($selected_artist) ?> am <?= date('d/m/Y', strtotime($date)) ?> gefunden.</p>
     <?php endif; ?>
-
 </body>
 </html>

@@ -8,28 +8,27 @@ if (!$artist_urls) die("Keine Künstler in artist_urls.txt gefunden!");
 
 // Loop through each artist
 foreach ($artist_urls as $line) {
-    // Split URL and artist name
     $parts = explode('#', $line);
     $url = trim($parts[0]);
     $artist_name = isset($parts[1]) ? trim($parts[1]) : 'Unknown Artist';
 
     echo "Processing $artist_name<br>";
 
-    // Load HTML with SSL context
-    $context = stream_context_create([
-        "ssl" => [
-            "verify_peer" => false,
-            "verify_peer_name" => false,
-        ]
-    ]);
-    $html = file_get_contents($url, false, $context);
-
-    if (!$html) { 
-        echo "Cannot load $artist_name<br>"; 
-        continue; 
+    // Get last CSV date for this artist
+    $existing_files = glob($csv_path . DIRECTORY_SEPARATOR . "$artist_name *.csv");
+    $last_csv_date = null;
+    if ($existing_files) {
+        rsort($existing_files);
+        $last_csv_file = $existing_files[0];
+        $last_csv_date = substr(basename($last_csv_file), strlen($artist_name)+1, 10);
     }
 
-    // Extract last updated date
+    // Load HTML
+    $context = stream_context_create(["ssl" => ["verify_peer" => false, "verify_peer_name" => false]]);
+    $html = file_get_contents($url, false, $context);
+    if (!$html) { echo "Cannot load $artist_name<br>"; continue; }
+
+    // Extract chart date
     if (preg_match('/Last updated:\s*([0-9\/]+)/i', $html, $matches)) {
         $raw_date = $matches[1]; 
         $chart_date = date('Y-m-d', strtotime($raw_date));
@@ -38,107 +37,80 @@ foreach ($artist_urls as $line) {
         continue; 
     }
 
-    $filename = $csv_path . DIRECTORY_SEPARATOR . "$artist_name $chart_date.csv";
-    if (file_exists($filename)) { 
-        echo "CSV exists for $chart_date<br><br>"; 
-        continue; 
+    // Check if this chart date is newer than last CSV
+    if ($last_csv_date && strtotime($chart_date) <= strtotime($last_csv_date)) {
+        echo "CSV exists for $artist_name $last_csv_date<br><br>";
+        continue; // Skip reading songs
     }
 
-    // Parse HTML
+    // Parse HTML for songs
     $doc = new DOMDocument();
     libxml_use_internal_errors(true);
     $doc->loadHTML($html);
     libxml_clear_errors();
     $xpath = new DOMXPath($doc);
-
-    // Alle Tabellen
-   $tables = $xpath->query("//table");
-   
-   echo "Gefundene Tabellen: ".$tables->length."<br>";
-
-    foreach ($tables as $index => $table) {
-        $rows = $table->getElementsByTagName('tr');
-        echo "Tabelle $index hat ".$rows->length." Zeilen<br>";
-    }
-
-    $rows = $xpath->query("//table[@class='addpos sortable']/tbody/tr"); // XPath: zweite Tabelle -> tbody -> tr
-
-    // Notfall-Fallback: keine Tabelle gefunden -> erste Tabelle nehmen
-    if (empty($rows) && $tables->length > 0) {
-        echo "Keine Hauptsongs-Tabelle gefunden für $artist_name, nehme erste Tabelle als Fallback<br>";
-        $rows = $tables->item(0)->getElementsByTagName('tr');
+    $rows = $xpath->query("//table[@class='addpos sortable']/tbody/tr");
+    if (!$rows || $rows->length === 0) {
+        echo "CSV exists for $artist_name $last_csv_date<br><br>";
+        continue;
     }
 
     $today_data = [];
-
     foreach ($rows as $row) {
         $cols = $row->getElementsByTagName('td');
         if ($cols->length < 3) continue;
-
-        // Song Title aus <a> im ersten <td>
         $link = $cols[0]->getElementsByTagName('a');
         if ($link->length === 0) continue;
         $title = trim($link->item(0)->nodeValue);
-
         $streams = trim($cols[1]->nodeValue);
         $daily   = trim($cols[2]->nodeValue);
-
         $rank = count($today_data) + 1;
-
-        $today_data[$title] = [
-            'rank' => $rank,
-            'streams' => $streams,
-            'daily' => $daily
-        ];
+        $today_data[$title] = ['rank'=>$rank,'streams'=>$streams,'daily'=>$daily];
     }
 
-    echo "Songs found: ".count($today_data)."<br>";
-    foreach ($today_data as $t => $d) {
-        echo "$t: ".$d['streams']." streams<br>";
+    if (count($today_data) === 0) {
+        echo "CSV exists for $artist_name $last_csv_date<br><br>";
+        continue;
     }
 
-    // Read previous CSV if exists
-    $previous_file = glob($csv_path . DIRECTORY_SEPARATOR . "$artist_name *.csv");
-    rsort($previous_file); // newest first
+    // Prepare CSV
+    $filename = $csv_path . DIRECTORY_SEPARATOR . "$artist_name $chart_date.csv";
+
+    // Read previous CSV if exists for diffs
     $prev_data = [];
-    if ($previous_file) {
-        $prev_file = $previous_file[0];
-        if (($handle = fopen($prev_file, 'r')) !== false) {
-            fgetcsv($handle); // skip header
+    if ($existing_files) {
+        rsort($existing_files);
+        $prev_file = $existing_files[0];
+        if (($handle = fopen($prev_file,'r')) !== false) {
+            fgetcsv($handle);
             while (($row = fgetcsv($handle)) !== false) {
-                if (!isset($row[1]) || trim($row[1]) === '') continue;
-                $prev_data[$row[1]] = $row;
+                if (!isset($row[0], $row[1])) continue;
+                $prev_data[$row[0]] = $row;
             }
             fclose($handle);
         }
     }
 
-    // Prepare CSV rows with diffs
+    // CSV rows with diffs
     $csv_rows = [["Song Title","Streams","Daily","Streams Vortag","Diff. Streams","Daily Vortag","Diff Daily"]];
     foreach ($today_data as $title => $data) {
         $prev = $prev_data[$title] ?? null;
-
         $streams_today = (int) str_replace(['.',','], '', $data['streams']);
         $daily_today = (int) str_replace(['.',','], '', $data['daily']);
-
         if ($prev) {
-            $streams_prev = (int) str_replace(['.',','], '', $prev[2]);
-            $daily_prev = (int) str_replace(['.',','], '', $prev[3]);
+            $streams_prev = (int) str_replace(['.',','], '', $prev[1]);
+            $daily_prev = (int) str_replace(['.',','], '', $prev[2]);
             $diff_streams = $streams_today - $streams_prev;
             $diff_daily = $daily_today - $daily_prev;
         } else {
             $streams_prev = $diff_streams = $daily_prev = $diff_daily = '';
         }
-
-        $csv_rows[] = [
-            $title, $streams_today, $daily_today,
-            $streams_prev, $diff_streams, $daily_prev, $diff_daily
-        ];
+        $csv_rows[] = [$title, $streams_today, $daily_today, $streams_prev, $diff_streams, $daily_prev, $diff_daily];
     }
 
     // Write CSV
-    $fp = fopen($filename, 'w');
-    foreach ($csv_rows as $row) fputcsv($fp, $row);
+    $fp = fopen($filename,'w');
+    foreach ($csv_rows as $row) fputcsv($fp,$row);
     fclose($fp);
 
     echo "CSV created for $artist_name $chart_date<br><br>";
