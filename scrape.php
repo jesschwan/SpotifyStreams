@@ -52,8 +52,16 @@ foreach ($artist_urls as $line) {
     $xpath = new DOMXPath($doc);
 
     // Alle Tabellen
-    $tables = $xpath->query("//table");
-    $rows = $xpath->query("//table[2]/tr"); // Standard: 2. Tabelle = Hauptsongs
+   $tables = $xpath->query("//table");
+   
+   echo "Gefundene Tabellen: ".$tables->length."<br>";
+
+    foreach ($tables as $index => $table) {
+        $rows = $table->getElementsByTagName('tr');
+        echo "Tabelle $index hat ".$rows->length." Zeilen<br>";
+    }
+
+    $rows = $xpath->query("//table[@class='addpos sortable']/tbody/tr"); // XPath: zweite Tabelle -> tbody -> tr
 
     // Notfall-Fallback: keine Tabelle gefunden -> erste Tabelle nehmen
     if (empty($rows) && $tables->length > 0) {
@@ -62,15 +70,20 @@ foreach ($artist_urls as $line) {
     }
 
     $today_data = [];
+
     foreach ($rows as $row) {
         $cols = $row->getElementsByTagName('td');
-        if ($cols->length < 4) continue;
-        $title = trim($cols->item(1)->nodeValue);
-        if ($title === '' || strtolower($title) === 'song title') continue;
+        if ($cols->length < 3) continue;
 
-        $rank = trim($cols->item(0)->nodeValue);
-        $streams = trim($cols->item(2)->nodeValue);
-        $daily = trim($cols->item(3)->nodeValue);
+        // Song Title aus <a> im ersten <td>
+        $link = $cols[0]->getElementsByTagName('a');
+        if ($link->length === 0) continue;
+        $title = trim($link->item(0)->nodeValue);
+
+        $streams = trim($cols[1]->nodeValue);
+        $daily   = trim($cols[2]->nodeValue);
+
+        $rank = count($today_data) + 1;
 
         $today_data[$title] = [
             'rank' => $rank,
