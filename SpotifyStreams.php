@@ -20,6 +20,14 @@ $selected_artist = '';
 $date = null;
 $all_record_arr = [];
 
+// Datum sauber aus Dateinamen holen (z.B. 2026-03-02)
+function extractDateFromFilename($file) {
+    if (preg_match('/(\d{4}-\d{2}-\d{2})\.csv$/', $file, $match)) {
+        return $match[1];
+    }
+    return null;
+}
+
 // Hilfsfunktion: neueste CSV mit echten Daten auswählen
 function selectLatestCsvWithData(array $files): ?string {
     foreach ($files as $f) {
@@ -63,7 +71,11 @@ function getCurrentArtistStats(string $csv_path, string $artist, ?string $date =
     ];
 
     // Sortieren nach Datum (neueste zuerst)
-    usort($files, fn($a,$b) => strtotime(substr($b,-14,10)) - strtotime(substr($a,-14,10)));
+    usort($files, function($a, $b) {
+        $dateA = extractDateFromFilename($a);
+        $dateB = extractDateFromFilename($b);
+        return strtotime($dateB) - strtotime($dateA);
+    });
 
     // Gewünschte Datei auswählen (Datum oder neueste mit echten Daten)
     if ($date) {
@@ -94,17 +106,30 @@ function getCurrentArtistStats(string $csv_path, string $artist, ?string $date =
             }
         }
         fclose($handle);
-        if ($hasData) $available_dates[] = substr($f,-14,10);
+        $dateExtracted = extractDateFromFilename($f);
+        if ($hasData && $dateExtracted) {
+            $available_dates[] = $dateExtracted;
+        }
     }
 
-    $display_date  = date('d/m/Y', strtotime(substr($selected_file,-14,10)));
+   $selectedDate = extractDateFromFilename($selected_file);
+   $display_date = $selectedDate 
+        ? date('d/m/Y', strtotime($selectedDate))
+        : '';
 
     // Vortag ermitteln
     $previous_file_index = array_search($selected_file, $files);
     $previous_file = $previous_file_index !== false && isset($files[$previous_file_index + 1])
         ? $files[$previous_file_index + 1]
         : null;
-    $previous_date = $previous_file ? date('d/m/Y', strtotime(substr($previous_file,-14,10))) : '';
+    if ($previous_file) {
+        $previousDateRaw = extractDateFromFilename($previous_file);
+        $previous_date = $previousDateRaw
+            ? date('d/m/Y', strtotime($previousDateRaw))
+            : '';
+    } else {
+        $previous_date = '';
+    }
 
     // Heute einlesen
     if (($handle = fopen($selected_file,'r')) !== FALSE) {
