@@ -28,19 +28,24 @@ function extractDateFromFilename($file) {
     return null;
 }
 
-// Hilfsfunktion: neueste CSV mit echten Daten auswählen
 function selectLatestCsvWithData(array $files): ?string {
     foreach ($files as $f) {
-        if (!file_exists($f) || filesize($f) <= 0) continue;
+
+        if (!file_exists($f) || filesize($f) <= 0) {
+            continue;
+        }
 
         $handle = fopen($f, 'r');
+        if (!$handle) continue;
+
         fgetcsv($handle); // Header überspringen
         $hasData = false;
 
         while (($row = fgetcsv($handle)) !== false) {
             $row = array_map('trim', $row);
-            // Prüfen, ob mindestens Rank und Songtitel vorhanden
-            if (!empty($row[1]) && is_numeric($row[0])) {
+
+            // Nur prüfen: existiert ein Songtitel?
+            if (isset($row[1]) && $row[1] !== '') {
                 $hasData = true;
                 break;
             }
@@ -48,8 +53,11 @@ function selectLatestCsvWithData(array $files): ?string {
 
         fclose($handle);
 
-        if ($hasData) return $f; // Erste Datei mit Daten zurückgeben
+        if ($hasData) {
+            return $f; // Erste Datei mit echten Daten zurückgeben
+        }
     }
+
     return null;
 }
 
