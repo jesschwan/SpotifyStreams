@@ -161,7 +161,10 @@ function getCurrentArtistStats(string $csv_path, string $artist, ?string $date =
 
         while (($row = fgetcsv($handle)) !== false) {
             $row = array_map('trim', $row);
-            if ($colTitle === false || empty($row[$colTitle])) continue;
+            // Leere Zeilen oder Header mitten in der CSV überspringen
+            if (!isset($row[$colTitle]) || trim($row[$colTitle]) === '' || strtolower(trim($row[$colTitle])) === 'song title') {
+                continue;
+            }
 
             $rank = $colRank !== false ? (int)$row[$colRank] : 0;
             $title = $row[$colTitle];
