@@ -154,10 +154,14 @@ function getCurrentArtistStats(string $csv_path, string $artist, ?string $date =
         $header = fgetcsv($handle);
         if (!$header) return $data;
 
+        $header = array_map('trim', $header);
+
         $colRank   = array_search('Rank', $header);
         $colTitle  = array_search('Song Title', $header);
         $colStreams= array_search('Streams', $header);
         $colDaily  = array_search('Daily', $header);
+
+        $currentRank = 1; // Startwert, falls keine Rank-Spalte oder leer
 
         while (($row = fgetcsv($handle)) !== false) {
             $row = array_map('trim', $row);
@@ -166,12 +170,30 @@ function getCurrentArtistStats(string $csv_path, string $artist, ?string $date =
                 continue;
             }
 
-            $rank = $colRank !== false ? (int)$row[$colRank] : 0;
-            $title = $row[$colTitle];
-            $streams = $colStreams !== false ? (int) str_replace(['.',','], '', $row[$colStreams]) : 0;
-            $daily   = $colDaily !== false ? (int) str_replace(['.',','], '', $row[$colDaily]) : 0;
+            // Rank korrekt setzen
+            if ($colRank !== false && isset($row[$colRank]) && is_numeric($row[$colRank]) && $row[$colRank] != '') {
+                $rank = (int)$row[$colRank];
+            } else {
+                $rank = $currentRank;
+            }
 
-            $data[$title] = ['rank'=>$rank,'streams'=>$streams,'daily'=>$daily];
+            $title = $row[$colTitle];
+
+            $streams = $colStreams !== false && isset($row[$colStreams])
+                ? (int) str_replace(['.',','], '', $row[$colStreams])
+                : 0;
+
+            $daily = $colDaily !== false && isset($row[$colDaily])
+                ? (int) str_replace(['.',','], '', $row[$colDaily])
+                : 0;
+
+            $data[$title] = [
+                'rank' => $rank,
+                'streams' => $streams,
+                'daily' => $daily
+            ];
+
+            $currentRank++;
         }
 
         fclose($handle);
