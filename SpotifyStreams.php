@@ -65,39 +65,49 @@ function selectLatestCsvWithData(array $files): ?string {
     return null;
 }
 
-// CSV einlesen
+//Anfang
+// CSV einlesen (unterstützt altes & neues Format)
 function readCsvFile($file){
     $data = [];
     if(!file_exists($file)) return $data;
+
     $handle = fopen($file,'r');
     if(!$handle) return $data;
 
     $header = fgetcsv($handle);
     if(!$header){ fclose($handle); return $data; }
 
+    $numCols = count($header);
+
+    // Spaltenindizes bestimmen
     $colTitle   = array_search('Song Title', $header);
     $colStreams = array_search('Streams', $header);
     $colDaily   = array_search('Daily', $header);
 
-    if($colTitle===false) $colTitle=1;
-    if($colStreams===false) $colStreams=2;
-    if($colDaily===false) $colDaily=3;
+    // Fallback, falls Header anders formatiert
+    if($colTitle===false) $colTitle = 1;
+    if($colStreams===false) $colStreams = 2;
+    if($colDaily===false) $colDaily = 3;
 
     $rank = 1;
     while(($row=fgetcsv($handle))!==false){
-        if(empty($row[$colTitle])) continue;
-        $title = trim($row[$colTitle]);
+        $title = isset($row[$colTitle]) ? trim($row[$colTitle]) : '';
+        if($title==='') continue;
+
         $key = normalizeTitle($title);
+
         $streams = isset($row[$colStreams]) ? (int) preg_replace('/[^0-9]/','',$row[$colStreams]) : 0;
         $daily   = isset($row[$colDaily])   ? (int) preg_replace('/[^0-9]/','',$row[$colDaily])   : 0;
+
         $data[$key] = [
-            'rank'=>$rank,
-            'streams'=>$streams,
-            'daily'=>$daily,
-            'original_title'=>$title
+            'rank'           => $rank,
+            'streams'        => $streams,
+            'daily'          => $daily,
+            'original_title' => $title
         ];
         $rank++;
     }
+
     fclose($handle);
     return $data;
 }
@@ -108,20 +118,20 @@ function getCurrentArtistStats($csv_path,$artist,$date=null){
     $files = glob($csv_path.DIRECTORY_SEPARATOR.$safe_artist.' *.csv');
     if(!$files) return ['data'=>[],'display_date'=>'','previous_date'=>'','available_dates'=>[]];
 
-    // Sortieren: neueste zuerst
+    // Neueste zuerst
     usort($files,function($a,$b){ return strtotime(extractDateFromFilename($b)) - strtotime(extractDateFromFilename($a)); });
 
     $selected_file = $date ? ($csv_path.DIRECTORY_SEPARATOR."$safe_artist $date.csv") : null;
     if(!$selected_file) $selected_file = selectLatestCsvWithData($files);
     if(!$selected_file) return ['data'=>[],'display_date'=>'','previous_date'=>'','available_dates'=>[]];
 
-    // Dropdown-Daten
+    // Verfügbare Daten für Dropdown
     $available_dates = [];
     foreach($files as $f){
-        $handle = fopen($f,'r'); if(!$handle) continue;
+        $handle = @fopen($f,'r'); if(!$handle) continue;
         fgetcsv($handle); $hasData=false;
         while(($row=fgetcsv($handle))!==false){
-            if(!empty($row[0])){ $hasData=true; break; }
+            if(!empty($row[1])){ $hasData=true; break; } // Spalte 1 = Song Title
         }
         fclose($handle);
         if($hasData && ($d=extractDateFromFilename($f))) $available_dates[]=$d;
@@ -130,7 +140,7 @@ function getCurrentArtistStats($csv_path,$artist,$date=null){
     $selectedDate = extractDateFromFilename($selected_file);
     $display_date = $selectedDate ? date('d/m/Y',strtotime($selectedDate)) : '';
 
-    // Vorheriges Datum zum Vergleich: letztes vorhandenes Datum kleiner als ausgewähltes
+    // Vorheriges Datum für Vergleich
     $previous_file = null;
     foreach($files as $f){
         $d = extractDateFromFilename($f);
@@ -147,24 +157,32 @@ function getCurrentArtistStats($csv_path,$artist,$date=null){
     $all_record_arr=[];
     foreach($today_data as $key => $row){
         $prev = $previous_data[$key] ?? null;
-        $rank=$row['rank']; $streams_today=$row['streams']; $daily_today=$row['daily'];
+        $rank = $row['rank'];
+        $streams_today = $row['streams'];
 
         if($prev){
-            $streams_prev=$prev['streams']; $daily_prev=$prev['daily'];
-            $diff_streams=$streams_today-$streams_prev;
-            $diff_daily  =$daily_today-$daily_prev;
-            $rank_change = $rank<$prev['rank'] ? '+'.($prev['rank']-$rank) : ($rank>$prev['rank'] ? '-'.($rank-$prev['rank']) : '–');
+            $daily_today   = $row['daily'];            // nur setzen, wenn vorheriger Wert existiert
+            $streams_prev  = $prev['streams'];
+            $daily_prev    = $prev['daily'];
+            $diff_streams  = $streams_today - $streams_prev;
+            $diff_daily    = $daily_today - $daily_prev;
+            $rank_change   = $rank < $prev['rank'] ? '+'.($prev['rank']-$rank)
+                        : ($rank > $prev['rank'] ? '-'.($rank-$prev['rank'])
+                        : '–');
         }else{
-            $streams_prev='-'; $daily_prev='-';
-            $diff_streams='-'; $diff_daily='-';
-            $rank_change='neu';
+            $daily_today   = '-';                       // neu → Daily = "-"
+            $streams_prev  = '-';
+            $daily_prev    = '-';
+            $diff_streams  = '-';
+            $diff_daily    = '-';
+            $rank_change   = 'neu';
         }
 
         $all_record_arr[] = [
             $rank,
             $row['original_title'],
-            $streams_today,
-            $daily_today,
+            $streams_today,    // immer Zahl
+            $daily_today,      // "-" wenn neu
             $streams_prev,
             $diff_streams,
             $daily_prev,
@@ -175,6 +193,7 @@ function getCurrentArtistStats($csv_path,$artist,$date=null){
 
     return ['data'=>$all_record_arr,'display_date'=>$display_date,'previous_date'=>$previous_date,'available_dates'=>$available_dates];
 }
+//Ende
 
 // POST Verarbeitung
 if(isset($_POST['interpretDropdown'])){

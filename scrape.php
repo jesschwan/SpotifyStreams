@@ -23,14 +23,24 @@ foreach ($artist_urls as $line) {
     }
 
     $context = stream_context_create(["ssl"=>["verify_peer"=>false,"verify_peer_name"=>false]]);
+    
     $html = file_get_contents($url, false, $context);
     if (!$html) { echo "Cannot load $artist_name<br>"; continue; }
 
-    if (preg_match('/Last updated:\s*([0-9\/]+)/i', $html, $matches)) {
-        $raw_date = $matches[1];
-        $date_parts = explode('/', $raw_date);
-        $chart_date = date('Y-m-d', mktime(0, 0, 0, $date_parts[1], $date_parts[0], $date_parts[2]));
-    } else { echo "Date not found for $artist_name<br>"; continue; }
+    if (preg_match('/Last updated:\s*(\d{4})\/(\d{2})\/(\d{2})/i', $html, $matches)) {
+
+        $year  = $matches[1];
+        $month = $matches[2];
+        $day   = $matches[3];
+
+        $chart_date = "$year-$month-$day";
+
+        echo "Detected chart date: $chart_date<br>";
+
+    } else { 
+        echo "Date not found for $artist_name<br>"; 
+        continue; 
+    }
 
     if ($last_csv_date && strtotime($chart_date) <= strtotime($last_csv_date)) {
         echo "CSV exists for $artist_name $last_csv_date<br><br>";
