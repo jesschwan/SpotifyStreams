@@ -30,43 +30,13 @@ function normalizeTitle($title) {
     $title = trim($title);
     if(class_exists('Normalizer')) $title = Normalizer::normalize($title, Normalizer::FORM_C);
     $title = str_replace(["'", "\u{2019}", "`"], "'", $title);
-    $title = preg_replace('/[\p{Cc}\p{Cf}]+/u','',$title);
+    $title = preg_replace('/[\p{Cc}\p{Cf}]+/u','',$title); // Steuerzeichen entfernen
+    $title = preg_replace('/^\*\s*/','',$title); // Sternchen nur am Anfang entfernen
     $title = preg_replace('/\s+/u',' ',$title);
     return trim($title);
 }
 
-// Funktion: Neueste CSV mit Daten auswählen
-function selectLatestCsvWithData(array $files): ?string {
-    // Dateien nach Datum absteigend sortieren
-    usort($files, function($a,$b){
-        return strtotime(extractDateFromFilename($b)) - strtotime(extractDateFromFilename($a));
-    });
-
-    foreach($files as $f){
-        if(!file_exists($f) || filesize($f)<=0) continue;
-
-        $handle = @fopen($f,'r');
-        if(!$handle) continue;
-
-        $header = fgetcsv($handle); // Header überspringen
-        $hasData = false;
-
-        while(($row=fgetcsv($handle))!==false){
-            $row = array_map('trim',$row);
-            if(isset($row[0]) && $row[0]!==''){
-                $hasData=true;
-                break;
-            }
-        }
-
-        fclose($handle);
-        if($hasData) return $f;
-    }
-    return null;
-}
-
-//Anfang
-// CSV einlesen (unterstützt alte & neue Struktur)
+// CSV einlesen (unterstützt alte & neue Struktur, sortiert nach Streams)
 function readCsvFile($file){
     $data = [];
     if(!file_exists($file)) return $data;
@@ -77,13 +47,12 @@ function readCsvFile($file){
     $header = fgetcsv($handle);
     if(!$header){ fclose($handle); return $data; }
 
-    // Spalten dynamisch bestimmen
     $colRank    = array_search('Rank', $header);
     $colTitle   = array_search('Song Title', $header);
     $colStreams = array_search('Streams', $header);
     $colDaily   = array_search('Daily', $header);
 
-    // Fallback für alte CSVs ohne Rank-Spalte
+    // Alte CSV ohne Rank-Spalte
     $rank_counter = 1;
     $hasRankColumn = $colRank !== false;
 
@@ -91,64 +60,105 @@ function readCsvFile($file){
     if($colStreams === false) $colStreams = 2;
     if($colDaily === false) $colDaily = 3;
 
+    $seenTitles = [];
+
     while(($row=fgetcsv($handle)) !== false){
         $title = isset($row[$colTitle]) ? trim($row[$colTitle]) : '';
         if($title === '' || strtolower($title) === 'song title') continue;
 
-        $key = normalizeTitle($title);
+        // Titel normalisieren & Sternchen entfernen
+        $key = trim(preg_replace('/[\p{Cc}\p{Cf}\*]+/u','',$title));
 
-        $rank = $hasRankColumn && isset($row[$colRank]) && is_numeric($row[$colRank])
-                ? (int)$row[$colRank]
-                : $rank_counter;
+        if(isset($seenTitles[$key])) continue;
+        $seenTitles[$key] = true;
 
         $streams = isset($row[$colStreams]) ? (int) preg_replace('/[^0-9]/','',$row[$colStreams]) : 0;
         $daily   = isset($row[$colDaily])   ? (int) preg_replace('/[^0-9]/','',$row[$colDaily])   : 0;
 
-        $data[$key] = [
-            'rank'           => $rank,
+        $data[] = [
+            'rank'           => $hasRankColumn && isset($row[$colRank]) && is_numeric($row[$colRank])
+                                ? (int)$row[$colRank]
+                                : 0, // Rank wird später neu gesetzt
             'streams'        => $streams,
             'daily'          => $daily,
             'original_title' => $title
         ];
-
-        $rank_counter++;
     }
 
     fclose($handle);
-    return $data;
+
+    // 1) Nach Streams absteigend sortieren
+    usort($data, function($a,$b){
+        return $b['streams'] <=> $a['streams'];
+    });
+
+    // 2) Rank neu vergeben
+    $rank_counter = 1;
+    foreach($data as &$row){
+        $row['rank'] = $rank_counter++;
+    }
+
+    // 3) Key für schnellen Zugriff auf den Titel
+    $result = [];
+    foreach($data as $row){
+        $key = trim(preg_replace('/[\p{Cc}\p{Cf}\*]+/u','',$row['original_title']));
+        $result[$key] = $row;
+    }
+
+    return $result;
+}
+
+// Funktion: Neueste CSV mit Daten auswählen
+function selectLatestCsvWithData(array $files): ?string {
+    usort($files, function($a,$b){
+        return strtotime(extractDateFromFilename($b)) - strtotime(extractDateFromFilename($a));
+    });
+
+    foreach($files as $f){
+        if(!file_exists($f) || filesize($f) <= 0) continue;
+
+        $data = readCsvFile($f);
+        if(!empty($data)) return $f;
+    }
+
+    return null;
 }
 
 // Alle Daten und Vergleich berechnen
-function getCurrentArtistStats($csv_path, $artist, $date=null){
+function getCurrentArtistStats($csv_path, $artist, $date = null) {
     $safe_artist = preg_replace('/[\/:*?"<>|]/','',$artist);
-    $files = glob($csv_path.DIRECTORY_SEPARATOR.$safe_artist.' *.csv');
-    if(!$files) return ['data'=>[],'display_date'=>'','previous_date'=>'','available_dates'=>[]];
+    $files = glob($csv_path . DIRECTORY_SEPARATOR . $safe_artist . ' *.csv');
+    if (!$files) return ['data'=>[],'display_date'=>'','previous_date'=>'','available_dates'=>[]];
 
-    // Dateien nach Datum sortieren (neueste zuerst)
-    usort($files,function($a,$b){ return strtotime(extractDateFromFilename($b)) - strtotime(extractDateFromFilename($a)); });
+    usort($files, function($a,$b){ 
+        return strtotime(extractDateFromFilename($b)) - strtotime(extractDateFromFilename($a));
+    });
 
-    // Gewählte Datei
-    $selected_file = $date ? ($csv_path.DIRECTORY_SEPARATOR."$safe_artist $date.csv") : null;
-    if(!$selected_file) $selected_file = selectLatestCsvWithData($files);
-    if(!$selected_file) return ['data'=>[],'display_date'=>'','previous_date'=>'','available_dates'=>[]];
+    // Gewählte Datei bestimmen
+    if ($date) {
+        $selected_file = $csv_path . DIRECTORY_SEPARATOR . "$safe_artist $date.csv";
+        if (!file_exists($selected_file)) $selected_file = null;
+    } else {
+        $selected_file = selectLatestCsvWithData($files);
+    }
 
-    // Verfügbare Daten für Dropdown
+    if (!$selected_file) return ['data'=>[],'display_date'=>'','previous_date'=>'','available_dates'=>[]];
+
     $available_dates = [];
-    foreach($files as $f){
+    foreach ($files as $f) {
         $tmpData = readCsvFile($f);
-        if(!empty($tmpData) && ($d = extractDateFromFilename($f))) $available_dates[] = $d;
+        if (!empty($tmpData) && ($d = extractDateFromFilename($f))) $available_dates[] = $d;
     }
 
     $selectedDate = extractDateFromFilename($selected_file);
     $display_date = $selectedDate ? date('d/m/Y', strtotime($selectedDate)) : '';
 
-    // Vorheriges Datum: die letzte CSV mit Daten kleiner als aktuelles Datum
     $previous_file = null;
-    foreach($files as $f){
+    foreach ($files as $f) {
         $d = extractDateFromFilename($f);
-        if($d && strtotime($d) < strtotime($selectedDate)){
+        if ($d && strtotime($d) < strtotime($selectedDate)) {
             $tmpData = readCsvFile($f);
-            if(!empty($tmpData)){
+            if (!empty($tmpData)) {
                 $previous_file = $f;
                 break;
             }
@@ -160,14 +170,14 @@ function getCurrentArtistStats($csv_path, $artist, $date=null){
     $previous_data = $previous_file ? readCsvFile($previous_file) : [];
 
     $all_record_arr = [];
-    foreach($today_data as $key => $row){
+    foreach($today_data as $key => $row) {
         $prev = $previous_data[$key] ?? null;
 
         $streams_today = $row['streams'];
         $daily_today   = $row['daily'];
         $rank          = $row['rank'];
 
-        if($prev){
+        if ($prev) {
             $streams_prev = $prev['streams'];
             $daily_prev   = $prev['daily'];
             $diff_streams = $streams_today - $streams_prev;
@@ -181,7 +191,7 @@ function getCurrentArtistStats($csv_path, $artist, $date=null){
             $diff_streams = '-';
             $diff_daily   = '-';
             $rank_change  = 'neu';
-            $daily_today  = '-'; // falls neu, Daily = "-"
+            $daily_today  = '-';
         }
 
         $all_record_arr[] = [
@@ -204,7 +214,6 @@ function getCurrentArtistStats($csv_path, $artist, $date=null){
         'available_dates' => $available_dates
     ];
 }
-//Ende
 
 // POST Verarbeitung
 if(isset($_POST['interpretDropdown'])){
