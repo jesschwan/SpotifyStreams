@@ -1,259 +1,128 @@
-<<<<<<< HEAD
-﻿,Song Title,Streams,Daily,Streams Vortag,Diff. Streams,Daily Vortag,Diff. Daily
-1,This Town,1.178.607.264,337.790,,,,
-2,Slow Hands,1.062.403.018,128.771,,,,
-3,* What A Time,875.253.982,174.264,,,,
-4,Too Much To Ask,529.676.355,49.136,,,,
-5,Nice To Meet Ya,370.003.877,40.093,,,,
-6,* Moral of the Story (feat. Niall Horan) (Bonus Track),346.226.492,49.407,,,,
-7,Put A Little Love On Me,321.234.707,60.948,,,,
-8,Heaven,307.244.931,84.100,,,,
-9,Black And White,296.169.753,39.644,,,,
-10,* Our Song,273.163.934,49.453,,,,
-11,No Judgement,206.655.902,16.297,,,,
-12,Seeing Blind,177.948.381,23.444,,,,
-13,Flicker,159.659.252,29.329,,,,
-14,On The Loose,116.734.421,19.801,,,,
-15,Meltdown,91.776.756,21.199,,,,
-16,Still,86.544.238,31.273,,,,
-17,Heartbreak Weather,80.800.012,27.111,,,,
-18,Slow Hands - Acoustic,76.647.235,8.545,,,,
-19,Fool's Gold - Recorded At RAK Studios London,67.400.509,7.959,,,,
-20,Paper Houses,63.084.454,10.403,,,,
-21,Small Talk,62.532.113,25.059,,,,
-22,Mirrors,54.976.344,12.648,,,,
-23,Everywhere,52.672.709,15.458,,,,
-24,The Show,48.293.957,20.870,,,,
-25,Too Much To Ask - Acoustic,43.080.221,4.489,,,,
-26,"Finally Free - From ""Smallfoot""",42.141.345,5.357,,,,
-27,Dear Patience,41.954.763,10.106,,,,
-28,Since We're Alone,41.944.756,9.001,,,,
-29,Fire Away,38.655.493,6.615,,,,
-30,Cross Your Mind,38.313.169,12.510,,,,
-31,Everywhere (BBC Children In Need),37.507.139,5.655,,,,
-32,On My Own,36.976.960,6.382,,,,
-33,Arms Of A Stranger,34.591.179,8.776,,,,
-34,You And Me,34.470.987,5.485,,,,
-35,Must Be Love,33.203.919,25.523,,,,
-36,San Francisco,31.600.507,7.461,,,,
-37,The Tide,31.560.411,4.610,,,,
-38,Bend The Rules,31.464.973,6.979,,,,
-39,New Angel,29.353.945,7.843,,,,
-40,You Could Start A Cult (with Lizzy McAlpine),25.346.583,15.959,,,,
-41,If You Leave Me,24.867.877,10.986,,,,
-42,Science,23.139.848,10.568,,,,
-43,Lover - Recorded at Air Studios London,22.746.002,3.572,,,,
-44,This Town - Tiёsto Remix,21.931.507,780,,,,
-45,You Could Start A Cult,21.694.493,7.947,,,,
-46,Never Grow Up,21.629.367,10.065,,,,
-47,Save My Life,20.409.583,10.465,,,,
-48,On A Night Like Tonight,19.967.689,8.292,,,,
-49,Nice To Meet Ya - Diplo Remix,17.191.458,1.232,,,,
-50,So Long feat. The RTÉ Concert Orchestra - Live,14.496.809,2.850,,,,
-51,Slow Hands - Basic Tape Remix,14.317.907,915,,,,
-52,Black And White - Stripped,13.714.890,2.814,,,,
-53,Heaven - Acoustic,10.624.763,2.639,,,,
-54,On The Loose - Alternate Version,10.352.540,811,,,,
-55,Something In The Orange - Live From Spotify Studios,10.195.733,6.876,,,,
-56,This Town - Live 1 Mic 1 Take,9.891.678,1.061,,,,
-57,Flicker feat. The RTÉ Concert Orchestra - Live,8.111.705,1.611,,,,
-58,This Town feat. The RTÉ Concert Orchestra - Live,7.952.566,1.171,,,,
-59,* Our Song - Acoustic,7.452.358,3.363,,,,
-60,Too Much To Ask - Recorded At RAK Studios London,6.766.116,455,,,,
-61,Paper Houses feat. The RTÉ Concert Orchestra - Live,6.722.738,698,,,,
-62,On The Loose - Basic Tape Remix,6.698.428,256,,,,
-63,The Tide feat. The RTÉ Concert Orchestra - Live,5.969.341,741,,,,
-64,The Show (with John Legend),5.712.963,1.874,,,,
-65,You And Me feat. The RTÉ Concert Orchestra - Live,5.374.861,526,,,,
-66,On The Loose - Acoustic,5.345.232,583,,,,
-67,No Judgement - Acoustic,5.005.137,991,,,,
-68,Too Much To Ask - Cedric Gervais Remix,4.906.708,189,,,,
-69,* Old Tricks,4.706.600,26.585,,,,
-70,If You Leave Me / Everybody Wants To Rule The World - Live From Electric Picnic,4.389.072,2.437,,,,
-71,* Our Song - Luca Schreiner Remix,3.753.424,290,,,,
-72,Nice To Meet Ya - Stripped,3.625.177,805,,,,
-73,Meltdown - Acoustic,3.255.430,1.126,,,,
-74,Dress,3.173.842,5.064,,,,
-75,Nothing,2.880.782,5.386,,,,
-76,You Could Start A Cult - Live from Spotify Studios,2.779.947,1.589,,,,
-77,Too Much To Ask feat. The RTÉ Concert Orchestra - Live,2.742.047,503,,,,
-78,Fire Away feat. The RTÉ Concert Orchestra - Live,2.712.204,518,,,,
-79,No Judgement - Steve Void Remix,2.421.093,85,,,,
-80,Slow Hands - Jay Pryor Remix,2.383.786,123,,,,
-81,Seeing Blind feat. The RTÉ Concert Orchestra - Live,2.343.643,432,,,,
-82,This Town - Cheat Codes Remix,2.179.545,94,,,,
-83,No Judgement - Recorded Live at Air Studios London,1.916.867,728,,,,
-84,Small Talk - Live From Madison Square Garden,1.879.230,1.317,,,,
-85,Black And White - Oliver Nelson Remix,1.812.120,93,,,,
-86,On The Loose - slenderbodies Remix,1.752.189,92,,,,
-87,Science - Live From Spotify Studios,1.518.955,708,,,,
-88,This Town - GOLDHOUSE Remix,1.516.114,38,,,,
-89,Heaven - Live From Madison Square Garden,1.418.181,868,,,,
-90,Too Much To Ask - TRU Concept Remix,1.268.424,455,,,,
-91,This Town - Live From Madison Square Garden,1.114.528,819,,,,
-92,This Town - Live from Spotify Studios,1.095.514,427,,,,
-93,Meltdown - Stripped,1.044.308,534,,,,
-94,This Town - Nikö Blank Remix,984.782,95,,,,
-95,Still - Live From Madison Square Garden,978.117,750,,,,
-96,* Our Song - Just Kiddin Remix,897.975,113,,,,
-97,This Town - Cabo San Remix,897.222,42,,,,
-98,Slow Hands - Live From Madison Square Garden,832.803,637,,,,
-99,Heaven - Live from Spotify Studios,830.551,393,,,,
-100,Black And White - Live From Madison Square Garden,798.588,607,,,,
-101,Heaven - Live From Electric Picnic,794.257,371,,,,
-102,On A Night Like Tonight - Live From Madison Square Garden,788.335,575,,,,
-103,Small Talk - Live at the Royal Albert Hall,769.416,864,,,,
-104,Science - Live From Madison Square Garden,755.379,563,,,,
-105,If You Leave Me - Live From Madison Square Garden,739.894,614,,,,
-106,The Show - Live from Spotify Studios,727.716,283,,,,
-107,San Francisco - Live From Madison Square Garden,724.934,569,,,,
-108,* Our Song - Moka Nola Remix,724.181,56,,,,
-109,Save My Life - Live from Electric Picnic,707.870,343,,,,
-110,On A Night Like Tonight - Live,688.505,352,,,,
-111,Slow Hands - Live from Spotify Studios,634.938,289,,,,
-112,Black And White - Live from Spotify Studios,631.562,382,,,,
-113,Nice To Meet Ya - Live From Łódź,620.693,464,,,,
-114,Flicker - Live from Spotify Studios,605.787,325,,,,
-115,On A Night Like Tonight - Live from Spotify Studios,547.574,274,,,,
-116,Heartbreak Weather - Live From Dublin,507.069,403,,,,
-117,Put A Little Love On Me - Live From Paris,498.397,436,,,,
-118,On The Loose - Live From Dusseldorf,481.056,383,,,,
-119,Cross Your Mind - Live From Milan,474.632,403,,,,
-120,Meltdown - Live from Spotify Studios,464.495,280,,,,
-121,You Could Start A Cult - Live From Tokyo,440.505,384,,,,
-122,Dear Patience - Live at the Royal Albert Hall,431.408,665,,,,
-123,Put A Little Love On Me - Live from Vevo,393.881,583,,,,
-124,Flicker - Live From London,381.101,360,,,,
-125,Dear Patience - Live From Melbourne,367.464,389,,,,
-126,Save My Life - Live From Tampa,354.029,404,,,,
-127,Paper Houses - Live From Oslo,344.481,376,,,,
-=======
-﻿,Song Title,Streams,Daily,Streams Vortag,Diff. Streams,Daily Vortag,Diff. Daily
-1,This Town,1.178.607.264,337.790,,,,
-2,Slow Hands,1.062.403.018,128.771,,,,
-3,* What A Time,875.253.982,174.264,,,,
-4,Too Much To Ask,529.676.355,49.136,,,,
-5,Nice To Meet Ya,370.003.877,40.093,,,,
-6,* Moral of the Story (feat. Niall Horan) (Bonus Track),346.226.492,49.407,,,,
-7,Put A Little Love On Me,321.234.707,60.948,,,,
-8,Heaven,307.244.931,84.100,,,,
-9,Black And White,296.169.753,39.644,,,,
-10,* Our Song,273.163.934,49.453,,,,
-11,No Judgement,206.655.902,16.297,,,,
-12,Seeing Blind,177.948.381,23.444,,,,
-13,Flicker,159.659.252,29.329,,,,
-14,On The Loose,116.734.421,19.801,,,,
-15,Meltdown,91.776.756,21.199,,,,
-16,Still,86.544.238,31.273,,,,
-17,Heartbreak Weather,80.800.012,27.111,,,,
-18,Slow Hands - Acoustic,76.647.235,8.545,,,,
-19,Fool's Gold - Recorded At RAK Studios London,67.400.509,7.959,,,,
-20,Paper Houses,63.084.454,10.403,,,,
-21,Small Talk,62.532.113,25.059,,,,
-22,Mirrors,54.976.344,12.648,,,,
-23,Everywhere,52.672.709,15.458,,,,
-24,The Show,48.293.957,20.870,,,,
-25,Too Much To Ask - Acoustic,43.080.221,4.489,,,,
-26,"Finally Free - From ""Smallfoot""",42.141.345,5.357,,,,
-27,Dear Patience,41.954.763,10.106,,,,
-28,Since We're Alone,41.944.756,9.001,,,,
-29,Fire Away,38.655.493,6.615,,,,
-30,Cross Your Mind,38.313.169,12.510,,,,
-31,Everywhere (BBC Children In Need),37.507.139,5.655,,,,
-32,On My Own,36.976.960,6.382,,,,
-33,Arms Of A Stranger,34.591.179,8.776,,,,
-34,You And Me,34.470.987,5.485,,,,
-35,Must Be Love,33.203.919,25.523,,,,
-36,San Francisco,31.600.507,7.461,,,,
-37,The Tide,31.560.411,4.610,,,,
-38,Bend The Rules,31.464.973,6.979,,,,
-39,New Angel,29.353.945,7.843,,,,
-40,You Could Start A Cult (with Lizzy McAlpine),25.346.583,15.959,,,,
-41,If You Leave Me,24.867.877,10.986,,,,
-42,Science,23.139.848,10.568,,,,
-43,Lover - Recorded at Air Studios London,22.746.002,3.572,,,,
-44,This Town - Tiёsto Remix,21.931.507,780,,,,
-45,You Could Start A Cult,21.694.493,7.947,,,,
-46,Never Grow Up,21.629.367,10.065,,,,
-47,Save My Life,20.409.583,10.465,,,,
-48,On A Night Like Tonight,19.967.689,8.292,,,,
-49,Nice To Meet Ya - Diplo Remix,17.191.458,1.232,,,,
-50,So Long feat. The RTÉ Concert Orchestra - Live,14.496.809,2.850,,,,
-51,Slow Hands - Basic Tape Remix,14.317.907,915,,,,
-52,Black And White - Stripped,13.714.890,2.814,,,,
-53,Heaven - Acoustic,10.624.763,2.639,,,,
-54,On The Loose - Alternate Version,10.352.540,811,,,,
-55,Something In The Orange - Live From Spotify Studios,10.195.733,6.876,,,,
-56,This Town - Live 1 Mic 1 Take,9.891.678,1.061,,,,
-57,Flicker feat. The RTÉ Concert Orchestra - Live,8.111.705,1.611,,,,
-58,This Town feat. The RTÉ Concert Orchestra - Live,7.952.566,1.171,,,,
-59,* Our Song - Acoustic,7.452.358,3.363,,,,
-60,Too Much To Ask - Recorded At RAK Studios London,6.766.116,455,,,,
-61,Paper Houses feat. The RTÉ Concert Orchestra - Live,6.722.738,698,,,,
-62,On The Loose - Basic Tape Remix,6.698.428,256,,,,
-63,The Tide feat. The RTÉ Concert Orchestra - Live,5.969.341,741,,,,
-64,The Show (with John Legend),5.712.963,1.874,,,,
-65,You And Me feat. The RTÉ Concert Orchestra - Live,5.374.861,526,,,,
-66,On The Loose - Acoustic,5.345.232,583,,,,
-67,No Judgement - Acoustic,5.005.137,991,,,,
-68,Too Much To Ask - Cedric Gervais Remix,4.906.708,189,,,,
-69,* Old Tricks,4.706.600,26.585,,,,
-70,If You Leave Me / Everybody Wants To Rule The World - Live From Electric Picnic,4.389.072,2.437,,,,
-71,* Our Song - Luca Schreiner Remix,3.753.424,290,,,,
-72,Nice To Meet Ya - Stripped,3.625.177,805,,,,
-73,Meltdown - Acoustic,3.255.430,1.126,,,,
-74,Dress,3.173.842,5.064,,,,
-75,Nothing,2.880.782,5.386,,,,
-76,You Could Start A Cult - Live from Spotify Studios,2.779.947,1.589,,,,
-77,Too Much To Ask feat. The RTÉ Concert Orchestra - Live,2.742.047,503,,,,
-78,Fire Away feat. The RTÉ Concert Orchestra - Live,2.712.204,518,,,,
-79,No Judgement - Steve Void Remix,2.421.093,85,,,,
-80,Slow Hands - Jay Pryor Remix,2.383.786,123,,,,
-81,Seeing Blind feat. The RTÉ Concert Orchestra - Live,2.343.643,432,,,,
-82,This Town - Cheat Codes Remix,2.179.545,94,,,,
-83,No Judgement - Recorded Live at Air Studios London,1.916.867,728,,,,
-84,Small Talk - Live From Madison Square Garden,1.879.230,1.317,,,,
-85,Black And White - Oliver Nelson Remix,1.812.120,93,,,,
-86,On The Loose - slenderbodies Remix,1.752.189,92,,,,
-87,Science - Live From Spotify Studios,1.518.955,708,,,,
-88,This Town - GOLDHOUSE Remix,1.516.114,38,,,,
-89,Heaven - Live From Madison Square Garden,1.418.181,868,,,,
-90,Too Much To Ask - TRU Concept Remix,1.268.424,455,,,,
-91,This Town - Live From Madison Square Garden,1.114.528,819,,,,
-92,This Town - Live from Spotify Studios,1.095.514,427,,,,
-93,Meltdown - Stripped,1.044.308,534,,,,
-94,This Town - Nikö Blank Remix,984.782,95,,,,
-95,Still - Live From Madison Square Garden,978.117,750,,,,
-96,* Our Song - Just Kiddin Remix,897.975,113,,,,
-97,This Town - Cabo San Remix,897.222,42,,,,
-98,Slow Hands - Live From Madison Square Garden,832.803,637,,,,
-99,Heaven - Live from Spotify Studios,830.551,393,,,,
-100,Black And White - Live From Madison Square Garden,798.588,607,,,,
-101,Heaven - Live From Electric Picnic,794.257,371,,,,
-102,On A Night Like Tonight - Live From Madison Square Garden,788.335,575,,,,
-103,Small Talk - Live at the Royal Albert Hall,769.416,864,,,,
-104,Science - Live From Madison Square Garden,755.379,563,,,,
-105,If You Leave Me - Live From Madison Square Garden,739.894,614,,,,
-106,The Show - Live from Spotify Studios,727.716,283,,,,
-107,San Francisco - Live From Madison Square Garden,724.934,569,,,,
-108,* Our Song - Moka Nola Remix,724.181,56,,,,
-109,Save My Life - Live from Electric Picnic,707.870,343,,,,
-110,On A Night Like Tonight - Live,688.505,352,,,,
-111,Slow Hands - Live from Spotify Studios,634.938,289,,,,
-112,Black And White - Live from Spotify Studios,631.562,382,,,,
-113,Nice To Meet Ya - Live From Łódź,620.693,464,,,,
-114,Flicker - Live from Spotify Studios,605.787,325,,,,
-115,On A Night Like Tonight - Live from Spotify Studios,547.574,274,,,,
-116,Heartbreak Weather - Live From Dublin,507.069,403,,,,
-117,Put A Little Love On Me - Live From Paris,498.397,436,,,,
-118,On The Loose - Live From Dusseldorf,481.056,383,,,,
-119,Cross Your Mind - Live From Milan,474.632,403,,,,
-120,Meltdown - Live from Spotify Studios,464.495,280,,,,
-121,You Could Start A Cult - Live From Tokyo,440.505,384,,,,
-122,Dear Patience - Live at the Royal Albert Hall,431.408,665,,,,
-123,Put A Little Love On Me - Live from Vevo,393.881,583,,,,
-124,Flicker - Live From London,381.101,360,,,,
-125,Dear Patience - Live From Melbourne,367.464,389,,,,
-126,Save My Life - Live From Tampa,354.029,404,,,,
-127,Paper Houses - Live From Oslo,344.481,376,,,,
->>>>>>> b99360b49daebb7d59fc17adfdd138118601ca90
+﻿Rank,Song Title,Streams,Daily
+1,This Town,1178607264,337790
+2,Slow Hands,1062403018,128771
+3,* What A Time,875253982,174264
+4,Too Much To Ask,529676355,49136
+5,Nice To Meet Ya,370003877,40093
+6,* Moral of the Story (feat. Niall Horan) (Bonus Track),346226492,49407
+7,Put A Little Love On Me,321234707,60948
+8,Heaven,307244931,84100
+9,Black And White,296169753,39644
+10,* Our Song,273163934,49453
+11,No Judgement,206655902,16297
+12,Seeing Blind,177948381,23444
+13,Flicker,159659252,29329
+14,On The Loose,116734421,19801
+15,Meltdown,91776756,21199
+16,Still,86544238,31273
+17,Heartbreak Weather,80800012,27111
+18,Slow Hands - Acoustic,76647235,8545
+19,Fool's Gold - Recorded At RAK Studios London,67400509,7959
+20,Paper Houses,63084454,10403
+21,Small Talk,62532113,25059
+22,Mirrors,54976344,12648
+23,Everywhere,52672709,15458
+24,The Show,48293957,20870
+25,Too Much To Ask - Acoustic,43080221,4489
+26,"Finally Free - From ""Smallfoot""",42141345,5357
+27,Dear Patience,41954763,10106
+28,Since We're Alone,41944756,9001
+29,Fire Away,38655493,6615
+30,Cross Your Mind,38313169,12510
+31,Everywhere (BBC Children In Need),37507139,5655
+32,On My Own,36976960,6382
+33,Arms Of A Stranger,34591179,8776
+34,You And Me,34470987,5485
+35,Must Be Love,33203919,25523
+36,San Francisco,31600507,7461
+37,The Tide,31560411,4610
+38,Bend The Rules,31464973,6979
+39,New Angel,29353945,7843
+40,You Could Start A Cult (with Lizzy McAlpine),25346583,15959
+41,If You Leave Me,24867877,10986
+42,Science,23139848,10568
+43,Lover - Recorded at Air Studios London,22746002,3572
+44,This Town - Tiёsto Remix,21931507,780
+45,You Could Start A Cult,21694493,7947
+46,Never Grow Up,21629367,10065
+47,Save My Life,20409583,10465
+48,On A Night Like Tonight,19967689,8292
+49,Nice To Meet Ya - Diplo Remix,17191458,1232
+50,So Long feat. The RTÉ Concert Orchestra - Live,14496809,2850
+51,Slow Hands - Basic Tape Remix,14317907,915
+52,Black And White - Stripped,13714890,2814
+53,Heaven - Acoustic,10624763,2639
+54,On The Loose - Alternate Version,10352540,811
+55,Something In The Orange - Live From Spotify Studios,10195733,6876
+56,This Town - Live 1 Mic 1 Take,9891678,1061
+57,Flicker feat. The RTÉ Concert Orchestra - Live,8111705,1611
+58,This Town feat. The RTÉ Concert Orchestra - Live,7952566,1171
+59,* Our Song - Acoustic,7452358,3363
+60,Too Much To Ask - Recorded At RAK Studios London,6766116,455
+61,Paper Houses feat. The RTÉ Concert Orchestra - Live,6722738,698
+62,On The Loose - Basic Tape Remix,6698428,256
+63,The Tide feat. The RTÉ Concert Orchestra - Live,5969341,741
+64,The Show (with John Legend),5712963,1874
+65,You And Me feat. The RTÉ Concert Orchestra - Live,5374861,526
+66,On The Loose - Acoustic,5345232,583
+67,No Judgement - Acoustic,5005137,991
+68,Too Much To Ask - Cedric Gervais Remix,4906708,189
+69,* Old Tricks,4706600,26585
+70,If You Leave Me / Everybody Wants To Rule The World - Live From Electric Picnic,4389072,2437
+71,* Our Song - Luca Schreiner Remix,3753424,290
+72,Nice To Meet Ya - Stripped,3625177,805
+73,Meltdown - Acoustic,3255430,1126
+74,Dress,3173842,5064
+75,Nothing,2880782,5386
+76,You Could Start A Cult - Live from Spotify Studios,2779947,1589
+77,Too Much To Ask feat. The RTÉ Concert Orchestra - Live,2742047,503
+78,Fire Away feat. The RTÉ Concert Orchestra - Live,2712204,518
+79,No Judgement - Steve Void Remix,2421093,85
+80,Slow Hands - Jay Pryor Remix,2383786,123
+81,Seeing Blind feat. The RTÉ Concert Orchestra - Live,2343643,432
+82,This Town - Cheat Codes Remix,2179545,94
+83,No Judgement - Recorded Live at Air Studios London,1916867,728
+84,Small Talk - Live From Madison Square Garden,1879230,1317
+85,Black And White - Oliver Nelson Remix,1812120,93
+86,On The Loose - slenderbodies Remix,1752189,92
+87,Science - Live From Spotify Studios,1518955,708
+88,This Town - GOLDHOUSE Remix,1516114,38
+89,Heaven - Live From Madison Square Garden,1418181,868
+90,Too Much To Ask - TRU Concept Remix,1268424,455
+91,This Town - Live From Madison Square Garden,1114528,819
+92,This Town - Live from Spotify Studios,1095514,427
+93,Meltdown - Stripped,1044308,534
+94,This Town - Nikö Blank Remix,984782,95
+95,Still - Live From Madison Square Garden,978117,750
+96,* Our Song - Just Kiddin Remix,897975,113
+97,This Town - Cabo San Remix,897222,42
+98,Slow Hands - Live From Madison Square Garden,832803,637
+99,Heaven - Live from Spotify Studios,830551,393
+100,Black And White - Live From Madison Square Garden,798588,607
+101,Heaven - Live From Electric Picnic,794257,371
+102,On A Night Like Tonight - Live From Madison Square Garden,788335,575
+103,Small Talk - Live at the Royal Albert Hall,769416,864
+104,Science - Live From Madison Square Garden,755379,563
+105,If You Leave Me - Live From Madison Square Garden,739894,614
+106,The Show - Live from Spotify Studios,727716,283
+107,San Francisco - Live From Madison Square Garden,724934,569
+108,* Our Song - Moka Nola Remix,724181,56
+109,Save My Life - Live from Electric Picnic,707870,343
+110,On A Night Like Tonight - Live,688505,352
+111,Slow Hands - Live from Spotify Studios,634938,289
+112,Black And White - Live from Spotify Studios,631562,382
+113,Nice To Meet Ya - Live From Łódź,620693,464
+114,Flicker - Live from Spotify Studios,605787,325
+115,On A Night Like Tonight - Live from Spotify Studios,547574,274
+116,Heartbreak Weather - Live From Dublin,507069,403
+117,Put A Little Love On Me - Live From Paris,498397,436
+118,On The Loose - Live From Dusseldorf,481056,383
+119,Cross Your Mind - Live From Milan,474632,403
+120,Meltdown - Live from Spotify Studios,464495,280
+121,You Could Start A Cult - Live From Tokyo,440505,384
+122,Dear Patience - Live at the Royal Albert Hall,431408,665
+123,Put A Little Love On Me - Live from Vevo,393881,583
+124,Flicker - Live From London,381101,360
+125,Dear Patience - Live From Melbourne,367464,389
+126,Save My Life - Live From Tampa,354029,404
+127,Paper Houses - Live From Oslo,344481,376

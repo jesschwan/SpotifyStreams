@@ -1,251 +1,124 @@
-<<<<<<< HEAD
-﻿,Song Title,Streams,Daily,Streams Vortag,Diff. Streams,Daily Vortag,Diff. Daily
-1,Night Changes,2.441.182.090,1.291.311,,,,
-2,Story of My Life,1.848.373.212,759.869,,,,
-3,What Makes You Beautiful,1.791.790.227,805.843,,,,
-4,Drag Me Down,1.364.459.587,384.752,,,,
-5,Perfect,1.200.563.466,612.634,,,,
-6,Steal My Girl,1.169.894.487,657.106,,,,
-7,18,908.244.228,447.984,,,,
-8,You & I,832.023.803,485.643,,,,
-9,Best Song Ever,763.195.152,204.327,,,,
-10,Little Things,709.333.040,134.511,,,,
-11,History,665.653.098,124.291,,,,
-12,They Don't Know About Us,657.954.276,257.397,,,,
-13,Right Now,632.467.311,312.816,,,,
-14,Kiss You,515.380.363,218.307,,,,
-15,Live While We're Young,495.358.861,183.940,,,,
-16,One Thing,479.643.903,272.071,,,,
-17,Strong,405.657.167,160.351,,,,
-18,No Control,354.032.203,173.707,,,,
-19,Olivia,312.601.818,53.293,,,,
-20,If I Could Fly,311.084.664,45.801,,,,
-21,Stockholm Syndrome,268.937.655,70.926,,,,
-22,Midnight Memories,264.417.929,64.193,,,,
-23,Infinity,262.424.256,50.037,,,,
-24,Love You Goodbye,237.098.187,43.709,,,,
-25,Where Do Broken Hearts Go,230.665.956,147.125,,,,
-26,Fool's Gold,225.383.310,55.405,,,,
-27,Fireproof,222.613.549,67.843,,,,
-28,A.M.,212.012.355,39.472,,,,
-29,What a Feeling,211.447.393,52.450,,,,
-30,Half a Heart,208.902.640,33.365,,,,
-31,One Way or Another (Teenage Kicks),206.756.543,55.713,,,,
-32,End of the Day,194.159.714,34.680,,,,
-33,Happily,192.278.899,40.735,,,,
-34,More Than This,189.854.749,42.661,,,,
-35,Over Again,189.203.351,38.779,,,,
-36,Walking in the Wind,187.136.258,46.688,,,,
-37,Rock Me,173.044.121,103.718,,,,
-38,Diana,172.883.999,49.575,,,,
-39,Last First Kiss,172.808.619,44.899,,,,
-40,Ready to Run,168.986.105,49.232,,,,
-41,Temporary Fix,157.672.866,41.954,,,,
-42,Girl Almighty,157.009.049,39.506,,,,
-43,Up All Night,150.028.819,38.713,,,,
-44,Gotta Be You,145.847.372,39.833,,,,
-45,Wolves,142.980.796,35.990,,,,
-46,I Would,138.622.530,36.336,,,,
-47,Never Enough,133.723.286,24.826,,,,
-48,I Want to Write You a Song,131.470.677,20.995,,,,
-49,Don't Forget Where You Belong,128.704.208,30.905,,,,
-50,C'mon C'mon,126.649.743,41.799,,,,
-51,Through the Dark,125.026.308,42.111,,,,
-52,She's Not Afraid,124.143.787,33.912,,,,
-53,Hey Angel,121.386.432,28.684,,,,
-54,Moments,120.970.179,28.384,,,,
-55,Act My Age,111.432.117,22.565,,,,
-56,Home,110.995.236,23.634,,,,
-57,Heart Attack,108.546.661,28.843,,,,
-58,I Wish,104.683.867,25.404,,,,
-59,Better Than Words,102.535.785,21.426,,,,
-60,Clouds,100.288.619,24.315,,,,
-61,Taken,99.792.849,22.204,,,,
-62,Long Way Down,99.462.009,20.656,,,,
-63,Nobody Compares,98.394.204,23.603,,,,
-64,Little White Lies,97.716.948,22.327,,,,
-65,Spaces,96.564.572,19.510,,,,
-66,Still The One,96.132.124,23.835,,,,
-67,Little Black Dress,93.948.666,20.998,,,,
-68,Change My Mind,92.701.187,22.932,,,,
-69,Summer Love,90.914.179,16.354,,,,
-70,I Want,86.708.381,20.006,,,,
-71,Does He Know?,85.757.602,22.543,,,,
-72,Once in a Lifetime,84.973.308,19.045,,,,
-73,Why Don't We Go There,83.410.925,18.980,,,,
-74,Change Your Ticket,82.121.844,22.548,,,,
-75,Back For You,78.923.728,19.358,,,,
-76,Magic,77.252.541,28.924,,,,
-77,Loved You First,76.353.409,19.669,,,,
-78,Stand Up,74.691.760,18.517,,,,
-79,Something Great,74.359.948,15.976,,,,
-80,Same Mistakes,73.513.734,15.709,,,,
-81,Alive,72.322.309,14.897,,,,
-82,Illusion,70.875.358,15.642,,,,
-83,Tell Me a Lie,70.743.818,17.715,,,,
-84,Stole My Heart,70.119.782,18.774,,,,
-85,Na Na Na,68.247.531,18.251,,,,
-86,I Should Have Kissed You,62.404.146,18.264,,,,
-87,Everything About You,61.623.260,14.796,,,,
-88,Save You Tonight,56.706.818,13.432,,,,
-89,Truly Madly Deeply,47.673.764,16.449,,,,
-90,Night Changes - Live Acoustic Session,46.504.659,7.188,,,,
-91,Irresistible,43.621.753,16.981,,,,
-92,Another World,37.351.265,9.877,,,,
-93,One Thing - Acoustic,35.614.452,7.609,,,,
-94,"Rock Me - Live Version from The Motion Picture ""One Direction: This Is Us""",33.050.937,8.862,,,,
-95,You & I - Piano Version,32.193.644,3.244,,,,
-96,Steal My Girl - Acoustic Version,25.376.964,2.617,,,,
-97,You & I - Radio Edit,21.433.342,3.808,,,,
-98,Perfect (feat. Matoma) - Matoma Remix,19.889.166,735,,,,
-99,Steal My Girl - 88 Ninety's 'Raiders of the Lost Art' Remix,13.631.597,347,,,,
-100,Steal My Girl - Live Acoustic Session,11.935.763,1.117,,,,
-101,Best Song Ever - Kat Krazy Remix,8.688.608,888,,,,
-102,Night Changes - Afterhrs Remix,8.339.394,742,,,,
-103,You & I - Big Payno Remix,7.203.324,319,,,,
-104,Drag Me Down (feat. LunchMoney Lewis) - Big Payno x AFTERHRS Remix,6.847.833,531,,,,
-105,"C'mon C'mon - Live Version from The Motion Picture ""One Direction: This Is Us""",5.916.767,2.122,,,,
-106,"Kiss You - Live Version From The Motion Picture ""One Direction: This Is Us""",5.039.219,891,,,,
-107,Story of My Life - Live X Factor Performance,4.742.484,954,,,,
-108,Live While We're Young - The Jump Smokers Remix,4.642.183,313,,,,
-109,Steal My Girl - Big Payno & Afterhrs Pool Party Remix,4.417.960,226,,,,
-110,Best Song Ever - Jump Smokers Remix,4.285.497,514,,,,
-111,I Want - Live,4.255.001,714,,,,
-112,Live While We're Young - Dave Aude Remix,3.692.648,304,,,,
-113,You & I - Duet Version,2.953.704,2.016,,,,
-114,What Makes You Beautiful - Live,2.430.649,860,,,,
-115,One Way or Another (Teenage Kicks) - Instrumental,2.427.878,369,,,,
-116,One Way or Another (Teenage Kicks) - Sharoque Remix,2.258.703,304,,,,
-117,More Than This - Live,1.944.681,688,,,,
-118,Up All Night - Live,1.633.738,780,,,,
-119,Gotta Be You - Live,1.424.938,519,,,,
-120,Best Song Ever - WestFunk & Steve Smart Remix,1.338.189,241,,,,
-121,Gotta Be You - Steve Smart & Westfunk Remix,576.479,231,,,,
-122,Gotta Be You - Mojam Remix,485.644,192,,,,
-123,Kiss You - Sharoque Remix,484.775,240,,,,
-=======
-﻿,Song Title,Streams,Daily,Streams Vortag,Diff. Streams,Daily Vortag,Diff. Daily
-1,Night Changes,2.441.182.090,1.291.311,,,,
-2,Story of My Life,1.848.373.212,759.869,,,,
-3,What Makes You Beautiful,1.791.790.227,805.843,,,,
-4,Drag Me Down,1.364.459.587,384.752,,,,
-5,Perfect,1.200.563.466,612.634,,,,
-6,Steal My Girl,1.169.894.487,657.106,,,,
-7,18,908.244.228,447.984,,,,
-8,You & I,832.023.803,485.643,,,,
-9,Best Song Ever,763.195.152,204.327,,,,
-10,Little Things,709.333.040,134.511,,,,
-11,History,665.653.098,124.291,,,,
-12,They Don't Know About Us,657.954.276,257.397,,,,
-13,Right Now,632.467.311,312.816,,,,
-14,Kiss You,515.380.363,218.307,,,,
-15,Live While We're Young,495.358.861,183.940,,,,
-16,One Thing,479.643.903,272.071,,,,
-17,Strong,405.657.167,160.351,,,,
-18,No Control,354.032.203,173.707,,,,
-19,Olivia,312.601.818,53.293,,,,
-20,If I Could Fly,311.084.664,45.801,,,,
-21,Stockholm Syndrome,268.937.655,70.926,,,,
-22,Midnight Memories,264.417.929,64.193,,,,
-23,Infinity,262.424.256,50.037,,,,
-24,Love You Goodbye,237.098.187,43.709,,,,
-25,Where Do Broken Hearts Go,230.665.956,147.125,,,,
-26,Fool's Gold,225.383.310,55.405,,,,
-27,Fireproof,222.613.549,67.843,,,,
-28,A.M.,212.012.355,39.472,,,,
-29,What a Feeling,211.447.393,52.450,,,,
-30,Half a Heart,208.902.640,33.365,,,,
-31,One Way or Another (Teenage Kicks),206.756.543,55.713,,,,
-32,End of the Day,194.159.714,34.680,,,,
-33,Happily,192.278.899,40.735,,,,
-34,More Than This,189.854.749,42.661,,,,
-35,Over Again,189.203.351,38.779,,,,
-36,Walking in the Wind,187.136.258,46.688,,,,
-37,Rock Me,173.044.121,103.718,,,,
-38,Diana,172.883.999,49.575,,,,
-39,Last First Kiss,172.808.619,44.899,,,,
-40,Ready to Run,168.986.105,49.232,,,,
-41,Temporary Fix,157.672.866,41.954,,,,
-42,Girl Almighty,157.009.049,39.506,,,,
-43,Up All Night,150.028.819,38.713,,,,
-44,Gotta Be You,145.847.372,39.833,,,,
-45,Wolves,142.980.796,35.990,,,,
-46,I Would,138.622.530,36.336,,,,
-47,Never Enough,133.723.286,24.826,,,,
-48,I Want to Write You a Song,131.470.677,20.995,,,,
-49,Don't Forget Where You Belong,128.704.208,30.905,,,,
-50,C'mon C'mon,126.649.743,41.799,,,,
-51,Through the Dark,125.026.308,42.111,,,,
-52,She's Not Afraid,124.143.787,33.912,,,,
-53,Hey Angel,121.386.432,28.684,,,,
-54,Moments,120.970.179,28.384,,,,
-55,Act My Age,111.432.117,22.565,,,,
-56,Home,110.995.236,23.634,,,,
-57,Heart Attack,108.546.661,28.843,,,,
-58,I Wish,104.683.867,25.404,,,,
-59,Better Than Words,102.535.785,21.426,,,,
-60,Clouds,100.288.619,24.315,,,,
-61,Taken,99.792.849,22.204,,,,
-62,Long Way Down,99.462.009,20.656,,,,
-63,Nobody Compares,98.394.204,23.603,,,,
-64,Little White Lies,97.716.948,22.327,,,,
-65,Spaces,96.564.572,19.510,,,,
-66,Still The One,96.132.124,23.835,,,,
-67,Little Black Dress,93.948.666,20.998,,,,
-68,Change My Mind,92.701.187,22.932,,,,
-69,Summer Love,90.914.179,16.354,,,,
-70,I Want,86.708.381,20.006,,,,
-71,Does He Know?,85.757.602,22.543,,,,
-72,Once in a Lifetime,84.973.308,19.045,,,,
-73,Why Don't We Go There,83.410.925,18.980,,,,
-74,Change Your Ticket,82.121.844,22.548,,,,
-75,Back For You,78.923.728,19.358,,,,
-76,Magic,77.252.541,28.924,,,,
-77,Loved You First,76.353.409,19.669,,,,
-78,Stand Up,74.691.760,18.517,,,,
-79,Something Great,74.359.948,15.976,,,,
-80,Same Mistakes,73.513.734,15.709,,,,
-81,Alive,72.322.309,14.897,,,,
-82,Illusion,70.875.358,15.642,,,,
-83,Tell Me a Lie,70.743.818,17.715,,,,
-84,Stole My Heart,70.119.782,18.774,,,,
-85,Na Na Na,68.247.531,18.251,,,,
-86,I Should Have Kissed You,62.404.146,18.264,,,,
-87,Everything About You,61.623.260,14.796,,,,
-88,Save You Tonight,56.706.818,13.432,,,,
-89,Truly Madly Deeply,47.673.764,16.449,,,,
-90,Night Changes - Live Acoustic Session,46.504.659,7.188,,,,
-91,Irresistible,43.621.753,16.981,,,,
-92,Another World,37.351.265,9.877,,,,
-93,One Thing - Acoustic,35.614.452,7.609,,,,
-94,"Rock Me - Live Version from The Motion Picture ""One Direction: This Is Us""",33.050.937,8.862,,,,
-95,You & I - Piano Version,32.193.644,3.244,,,,
-96,Steal My Girl - Acoustic Version,25.376.964,2.617,,,,
-97,You & I - Radio Edit,21.433.342,3.808,,,,
-98,Perfect (feat. Matoma) - Matoma Remix,19.889.166,735,,,,
-99,Steal My Girl - 88 Ninety's 'Raiders of the Lost Art' Remix,13.631.597,347,,,,
-100,Steal My Girl - Live Acoustic Session,11.935.763,1.117,,,,
-101,Best Song Ever - Kat Krazy Remix,8.688.608,888,,,,
-102,Night Changes - Afterhrs Remix,8.339.394,742,,,,
-103,You & I - Big Payno Remix,7.203.324,319,,,,
-104,Drag Me Down (feat. LunchMoney Lewis) - Big Payno x AFTERHRS Remix,6.847.833,531,,,,
-105,"C'mon C'mon - Live Version from The Motion Picture ""One Direction: This Is Us""",5.916.767,2.122,,,,
-106,"Kiss You - Live Version From The Motion Picture ""One Direction: This Is Us""",5.039.219,891,,,,
-107,Story of My Life - Live X Factor Performance,4.742.484,954,,,,
-108,Live While We're Young - The Jump Smokers Remix,4.642.183,313,,,,
-109,Steal My Girl - Big Payno & Afterhrs Pool Party Remix,4.417.960,226,,,,
-110,Best Song Ever - Jump Smokers Remix,4.285.497,514,,,,
-111,I Want - Live,4.255.001,714,,,,
-112,Live While We're Young - Dave Aude Remix,3.692.648,304,,,,
-113,You & I - Duet Version,2.953.704,2.016,,,,
-114,What Makes You Beautiful - Live,2.430.649,860,,,,
-115,One Way or Another (Teenage Kicks) - Instrumental,2.427.878,369,,,,
-116,One Way or Another (Teenage Kicks) - Sharoque Remix,2.258.703,304,,,,
-117,More Than This - Live,1.944.681,688,,,,
-118,Up All Night - Live,1.633.738,780,,,,
-119,Gotta Be You - Live,1.424.938,519,,,,
-120,Best Song Ever - WestFunk & Steve Smart Remix,1.338.189,241,,,,
-121,Gotta Be You - Steve Smart & Westfunk Remix,576.479,231,,,,
-122,Gotta Be You - Mojam Remix,485.644,192,,,,
-123,Kiss You - Sharoque Remix,484.775,240,,,,
->>>>>>> b99360b49daebb7d59fc17adfdd138118601ca90
+﻿Rank,Song Title,Streams,Daily
+1,Night Changes,2441182090,1291311
+2,Story of My Life,1848373212,759869
+3,What Makes You Beautiful,1791790227,805843
+4,Drag Me Down,1364459587,384752
+5,Perfect,1200563466,612634
+6,Steal My Girl,1169894487,657106
+7,18,908244228,447984
+8,You & I,832023803,485643
+9,Best Song Ever,763195152,204327
+10,Little Things,709333040,134511
+11,History,665653098,124291
+12,They Don't Know About Us,657954276,257397
+13,Right Now,632467311,312816
+14,Kiss You,515380363,218307
+15,Live While We're Young,495358861,183940
+16,One Thing,479643903,272071
+17,Strong,405657167,160351
+18,No Control,354032203,173707
+19,Olivia,312601818,53293
+20,If I Could Fly,311084664,45801
+21,Stockholm Syndrome,268937655,70926
+22,Midnight Memories,264417929,64193
+23,Infinity,262424256,50037
+24,Love You Goodbye,237098187,43709
+25,Where Do Broken Hearts Go,230665956,147125
+26,Fool's Gold,225383310,55405
+27,Fireproof,222613549,67843
+28,A.M.,212012355,39472
+29,What a Feeling,211447393,52450
+30,Half a Heart,208902640,33365
+31,One Way or Another (Teenage Kicks),206756543,55713
+32,End of the Day,194159714,34680
+33,Happily,192278899,40735
+34,More Than This,189854749,42661
+35,Over Again,189203351,38779
+36,Walking in the Wind,187136258,46688
+37,Rock Me,173044121,103718
+38,Diana,172883999,49575
+39,Last First Kiss,172808619,44899
+40,Ready to Run,168986105,49232
+41,Temporary Fix,157672866,41954
+42,Girl Almighty,157009049,39506
+43,Up All Night,150028819,38713
+44,Gotta Be You,145847372,39833
+45,Wolves,142980796,35990
+46,I Would,138622530,36336
+47,Never Enough,133723286,24826
+48,I Want to Write You a Song,131470677,20995
+49,Don't Forget Where You Belong,128704208,30905
+50,C'mon C'mon,126649743,41799
+51,Through the Dark,125026308,42111
+52,She's Not Afraid,124143787,33912
+53,Hey Angel,121386432,28684
+54,Moments,120970179,28384
+55,Act My Age,111432117,22565
+56,Home,110995236,23634
+57,Heart Attack,108546661,28843
+58,I Wish,104683867,25404
+59,Better Than Words,102535785,21426
+60,Clouds,100288619,24315
+61,Taken,99792849,22204
+62,Long Way Down,99462009,20656
+63,Nobody Compares,98394204,23603
+64,Little White Lies,97716948,22327
+65,Spaces,96564572,19510
+66,Still The One,96132124,23835
+67,Little Black Dress,93948666,20998
+68,Change My Mind,92701187,22932
+69,Summer Love,90914179,16354
+70,I Want,86708381,20006
+71,Does He Know?,85757602,22543
+72,Once in a Lifetime,84973308,19045
+73,Why Don't We Go There,83410925,18980
+74,Change Your Ticket,82121844,22548
+75,Back For You,78923728,19358
+76,Magic,77252541,28924
+77,Loved You First,76353409,19669
+78,Stand Up,74691760,18517
+79,Something Great,74359948,15976
+80,Same Mistakes,73513734,15709
+81,Alive,72322309,14897
+82,Illusion,70875358,15642
+83,Tell Me a Lie,70743818,17715
+84,Stole My Heart,70119782,18774
+85,Na Na Na,68247531,18251
+86,I Should Have Kissed You,62404146,18264
+87,Everything About You,61623260,14796
+88,Save You Tonight,56706818,13432
+89,Truly Madly Deeply,47673764,16449
+90,Night Changes - Live Acoustic Session,46504659,7188
+91,Irresistible,43621753,16981
+92,Another World,37351265,9877
+93,One Thing - Acoustic,35614452,7609
+94,"Rock Me - Live Version from The Motion Picture ""One Direction: This Is Us""",33050937,8862
+95,You & I - Piano Version,32193644,3244
+96,Steal My Girl - Acoustic Version,25376964,2617
+97,You & I - Radio Edit,21433342,3808
+98,Perfect (feat. Matoma) - Matoma Remix,19889166,735
+99,Steal My Girl - 88 Ninety's 'Raiders of the Lost Art' Remix,13631597,347
+100,Steal My Girl - Live Acoustic Session,11935763,1117
+101,Best Song Ever - Kat Krazy Remix,8688608,888
+102,Night Changes - Afterhrs Remix,8339394,742
+103,You & I - Big Payno Remix,7203324,319
+104,Drag Me Down (feat. LunchMoney Lewis) - Big Payno x AFTERHRS Remix,6847833,531
+105,"C'mon C'mon - Live Version from The Motion Picture ""One Direction: This Is Us""",5916767,2122
+106,"Kiss You - Live Version From The Motion Picture ""One Direction: This Is Us""",5039219,891
+107,Story of My Life - Live X Factor Performance,4742484,954
+108,Live While We're Young - The Jump Smokers Remix,4642183,313
+109,Steal My Girl - Big Payno & Afterhrs Pool Party Remix,4417960,226
+110,Best Song Ever - Jump Smokers Remix,4285497,514
+111,I Want - Live,4255001,714
+112,Live While We're Young - Dave Aude Remix,3692648,304
+113,You & I - Duet Version,2953704,2016
+114,What Makes You Beautiful - Live,2430649,860
+115,One Way or Another (Teenage Kicks) - Instrumental,2427878,369
+116,One Way or Another (Teenage Kicks) - Sharoque Remix,2258703,304
+117,More Than This - Live,1944681,688
+118,Up All Night - Live,1633738,780
+119,Gotta Be You - Live,1424938,519
+120,Best Song Ever - WestFunk & Steve Smart Remix,1338189,241
+121,Gotta Be You - Steve Smart & Westfunk Remix,576479,231
+122,Gotta Be You - Mojam Remix,485644,192
+123,Kiss You - Sharoque Remix,484775,240

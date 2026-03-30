@@ -1,79 +1,38 @@
-<<<<<<< HEAD
-﻿,Song Title,Streams,Daily,Streams Vortag,Diff. Streams,Daily Vortag,Diff. Daily
-1,As It Was,4.214.081.098,1.975.518,,,,
-2,Watermelon Sugar,3.183.393.850,960.790,,,,
-3,Sign of the Times,2.013.956.623,1.340.812,,,,
-4,Adore You,1.986.865.578,1.128.740,,,,
-5,Falling,1.503.712.795,806.651,,,,
-6,Late Night Talking,1.145.784.417,444.854,,,,
-7,Golden,1.032.478.967,341.879,,,,
-8,Lights Up,734.601.219,238.004,,,,
-9,Matilda,710.429.172,793.475,,,,
-10,Fine Line,688.933.648,525.559,,,,
-11,Sweet Creature,673.484.511,174.853,,,,
-12,Kiwi,592.501.187,188.443,,,,
-13,Satellite,560.751.423,345.271,,,,
-14,Music For a Sushi Restaurant,479.008.163,224.744,,,,
-15,Little Freak,454.848.584,271.177,,,,
-16,Daylight,449.293.468,221.125,,,,
-17,Keep Driving,416.134.685,197.689,,,,
-18,Cherry,412.587.787,228.411,,,,
-19,From the Dining Table,402.424.026,146.704,,,,
-20,She,378.617.736,143.211,,,,
-21,Two Ghosts,367.621.845,145.830,,,,
-22,Love Of My Life,356.120.393,181.127,,,,
-23,Sunflower Vol. 6,339.625.743,141.932,,,,
-24,Girl Crush - Recorded at Metropolis Studios London,316.073.585,104.507,,,,
-25,Grapejuice,284.532.297,185.256,,,,
-26,To Be So Lonely,282.790.896,129.662,,,,
-27,Daydreaming,277.581.584,190.715,,,,
-28,Cinema,275.982.270,213.065,,,,
-29,Meet Me in the Hallway,258.343.824,112.795,,,,
-30,Woman,253.258.983,118.799,,,,
-31,Canyon Moon,240.999.846,115.869,,,,
-32,Carolina,240.217.931,89.934,,,,
-33,Only Angel,229.052.608,121.262,,,,
-34,Treat People With Kindness,221.634.631,103.004,,,,
-35,Ever Since New York,207.048.209,112.235,,,,
-36,Boyfriends,190.825.111,119.434,,,,
-37,Two Ghosts - Recorded at Metropolis Studios London,59.642.894,14.430,,,,
-=======
-﻿,Song Title,Streams,Daily,Streams Vortag,Diff. Streams,Daily Vortag,Diff. Daily
-1,As It Was,4.214.081.098,1.975.518,,,,
-2,Watermelon Sugar,3.183.393.850,960.790,,,,
-3,Sign of the Times,2.013.956.623,1.340.812,,,,
-4,Adore You,1.986.865.578,1.128.740,,,,
-5,Falling,1.503.712.795,806.651,,,,
-6,Late Night Talking,1.145.784.417,444.854,,,,
-7,Golden,1.032.478.967,341.879,,,,
-8,Lights Up,734.601.219,238.004,,,,
-9,Matilda,710.429.172,793.475,,,,
-10,Fine Line,688.933.648,525.559,,,,
-11,Sweet Creature,673.484.511,174.853,,,,
-12,Kiwi,592.501.187,188.443,,,,
-13,Satellite,560.751.423,345.271,,,,
-14,Music For a Sushi Restaurant,479.008.163,224.744,,,,
-15,Little Freak,454.848.584,271.177,,,,
-16,Daylight,449.293.468,221.125,,,,
-17,Keep Driving,416.134.685,197.689,,,,
-18,Cherry,412.587.787,228.411,,,,
-19,From the Dining Table,402.424.026,146.704,,,,
-20,She,378.617.736,143.211,,,,
-21,Two Ghosts,367.621.845,145.830,,,,
-22,Love Of My Life,356.120.393,181.127,,,,
-23,Sunflower Vol. 6,339.625.743,141.932,,,,
-24,Girl Crush - Recorded at Metropolis Studios London,316.073.585,104.507,,,,
-25,Grapejuice,284.532.297,185.256,,,,
-26,To Be So Lonely,282.790.896,129.662,,,,
-27,Daydreaming,277.581.584,190.715,,,,
-28,Cinema,275.982.270,213.065,,,,
-29,Meet Me in the Hallway,258.343.824,112.795,,,,
-30,Woman,253.258.983,118.799,,,,
-31,Canyon Moon,240.999.846,115.869,,,,
-32,Carolina,240.217.931,89.934,,,,
-33,Only Angel,229.052.608,121.262,,,,
-34,Treat People With Kindness,221.634.631,103.004,,,,
-35,Ever Since New York,207.048.209,112.235,,,,
-36,Boyfriends,190.825.111,119.434,,,,
-37,Two Ghosts - Recorded at Metropolis Studios London,59.642.894,14.430,,,,
->>>>>>> b99360b49daebb7d59fc17adfdd138118601ca90
+﻿Rank,Song Title,Streams,Daily
+1,As It Was,4214081098,1975518
+2,Watermelon Sugar,3183393850,960790
+3,Sign of the Times,2013956623,1340812
+4,Adore You,1986865578,1128740
+5,Falling,1503712795,806651
+6,Late Night Talking,1145784417,444854
+7,Golden,1032478967,341879
+8,Lights Up,734601219,238004
+9,Matilda,710429172,793475
+10,Fine Line,688933648,525559
+11,Sweet Creature,673484511,174853
+12,Kiwi,592501187,188443
+13,Satellite,560751423,345271
+14,Music For a Sushi Restaurant,479008163,224744
+15,Little Freak,454848584,271177
+16,Daylight,449293468,221125
+17,Keep Driving,416134685,197689
+18,Cherry,412587787,228411
+19,From the Dining Table,402424026,146704
+20,She,378617736,143211
+21,Two Ghosts,367621845,145830
+22,Love Of My Life,356120393,181127
+23,Sunflower Vol. 6,339625743,141932
+24,Girl Crush - Recorded at Metropolis Studios London,316073585,104507
+25,Grapejuice,284532297,185256
+26,To Be So Lonely,282790896,129662
+27,Daydreaming,277581584,190715
+28,Cinema,275982270,213065
+29,Meet Me in the Hallway,258343824,112795
+30,Woman,253258983,118799
+31,Canyon Moon,240999846,115869
+32,Carolina,240217931,89934
+33,Only Angel,229052608,121262
+34,Treat People With Kindness,221634631,103004
+35,Ever Since New York,207048209,112235
+36,Boyfriends,190825111,119434
+37,Two Ghosts - Recorded at Metropolis Studios London,59642894,14430

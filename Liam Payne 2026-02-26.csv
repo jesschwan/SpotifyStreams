@@ -1,119 +1,58 @@
-<<<<<<< HEAD
-﻿,Song Title,Streams,Daily,Streams Vortag,Diff. Streams,Daily Vortag,Diff. Daily
-1,Strip That Down (feat. Quavo),1.113.492.578,135.981,,,,
-2,For You (With Rita Ora),554.258.437,124.519,,,,
-3,* Polaroid (With Jonas Blue & Lennon Stella),446.777.457,42.859,,,,
-4,Familiar (With J. Balvin),298.542.247,22.448,,,,
-5,* Get Low (With Zedd),221.098.695,15.547,,,,
-6,* Midnight (feat. Liam Payne),216.598.524,18.176,,,,
-7,Bedroom Floor,183.876.901,13.155,,,,
-8,Stack It Up (feat. A Boogie Wit da Hoodie),122.177.852,14.244,,,,
-9,All I Want (For Christmas),99.281.840,2.354,,,,
-10,Naughty List (with Dixie),70.394.283,1.188,,,,
-11,Strip That Down - Acoustic,63.178.821,3.542,,,,
-12,Live Forever (With Cheat Codes),58.072.765,4.461,,,,
-13,First Time,42.158.932,1.526,,,,
-14,Sunshine - From the Motion Picture “Ron’s Gone Wrong”,29.858.914,6.458,,,,
-15,Teardrops,27.578.308,15.315,,,,
-16,Remember,27.224.826,11.263,,,,
-17,* Polaroid - Acoustic,25.379.316,1.670,,,,
-18,Strip That Down - Nevada Remix,15.905.376,1.059,,,,
-19,Depend On It,13.353.906,2.341,,,,
-20,Slow,13.066.716,3.470,,,,
-21,Let It Snow Let It Snow Let It Snow,12.864.951,129,,,,
-22,Heart Meet Break,10.685.309,2.335,,,,
-23,Home With You,9.958.166,1.820,,,,
-24,Stack It Up - Acoustic,9.644.297,431,,,,
-25,Say It All,7.526.670,2.621,,,,
-26,Tell Your Friends,7.243.970,1.614,,,,
-27,* You & I - Big Payno Remix,7.213.787,300,,,,
-28,* Drag Me Down (feat. LunchMoney Lewis) - Big Payno x AFTERHRS Remix,6.864.775,452,,,,
-29,Weekend,6.777.198,1.323,,,,
-30,Hips Don't Lie,6.701.492,1.253,,,,
-31,Both Ways,5.776.496,1.213,,,,
-32,Bedroom Floor - Cash Cash Remix,5.507.148,251,,,,
-33,* Polaroid - R3HAB Remix,5.287.604,194,,,,
-34,Rude Hours,5.155.746,1.012,,,,
-35,* Steal My Girl - Big Payno & Afterhrs Pool Party Remix,4.425.309,174,,,,
-36,* Midnight (feat. Liam Payne) (Rompasso Remix),3.708.305,170,,,,
-37,Bedroom Floor - Acoustic,3.641.607,245,,,,
-38,* Get Low - KUURO Remix,3.014.343,88,,,,
-39,Teardrops - Acoustic,2.573.204,1.499,,,,
-40,* Midnight (feat. Liam Payne) (Jack Wins Remix),2.145.828,161,,,,
-41,* Polaroid - CID & Jonas Blue Remix,1.658.052,50,,,,
-42,Bedroom Floor - NSG Remix,1.486.206,90,,,,
-43,* Midnight (feat. Liam Payne) (Alesso & ESH Remix),1.479.646,91,,,,
-44,* Polaroid - Zac Samuel Remix,1.178.997,86,,,,
-45,* Midnight (feat. Liam Payne) (Vicetone Remix),946.953,172,,,,
-46,Live Forever (With Cheat Codes) - R3HAB Remix,801.357,97,,,,
-47,* Midnight - Sylvain Armand & Kiko Franco Remix,721.795,52,,,,
-48,Sunshine - From the Motion Picture “Ron’s Gone Wrong” / Acoustic,681.956,194,,,,
-49,Sunshine - From the Motion Picture “Ron’s Gone Wrong’’ (Billen Ted Remix),544.374,91,,,,
-50,Bedroom Floor - London On Da Track Remix,541.693,42,,,,
-51,* Polaroid - HUGEL Remix,537.682,42,,,,
-52,* Polaroid - Nolan van Lith Remix,282.868,27,,,,
-53,Live Forever (with Cheat Codes) - 99 Souls Remix,273.294,27,,,,
-54,Live Forever (With Cheat Codes) - Mahalo Remix,258.961,37,,,,
-55,Live Forever (With Cheat Codes) - Dee Swan & Gregatron Remix,214.199,33,,,,
-56,* I Don't Care - Payno Vs. Afterhrs Remix,198.461,5,,,,
-57,* Midnight (feat. Liam Payne) (Magnificence Remix),188.718,35,,,,
-=======
-﻿,Song Title,Streams,Daily,Streams Vortag,Diff. Streams,Daily Vortag,Diff. Daily
-1,Strip That Down (feat. Quavo),1.113.492.578,135.981,,,,
-2,For You (With Rita Ora),554.258.437,124.519,,,,
-3,* Polaroid (With Jonas Blue & Lennon Stella),446.777.457,42.859,,,,
-4,Familiar (With J. Balvin),298.542.247,22.448,,,,
-5,* Get Low (With Zedd),221.098.695,15.547,,,,
-6,* Midnight (feat. Liam Payne),216.598.524,18.176,,,,
-7,Bedroom Floor,183.876.901,13.155,,,,
-8,Stack It Up (feat. A Boogie Wit da Hoodie),122.177.852,14.244,,,,
-9,All I Want (For Christmas),99.281.840,2.354,,,,
-10,Naughty List (with Dixie),70.394.283,1.188,,,,
-11,Strip That Down - Acoustic,63.178.821,3.542,,,,
-12,Live Forever (With Cheat Codes),58.072.765,4.461,,,,
-13,First Time,42.158.932,1.526,,,,
-14,Sunshine - From the Motion Picture “Ron’s Gone Wrong”,29.858.914,6.458,,,,
-15,Teardrops,27.578.308,15.315,,,,
-16,Remember,27.224.826,11.263,,,,
-17,* Polaroid - Acoustic,25.379.316,1.670,,,,
-18,Strip That Down - Nevada Remix,15.905.376,1.059,,,,
-19,Depend On It,13.353.906,2.341,,,,
-20,Slow,13.066.716,3.470,,,,
-21,Let It Snow Let It Snow Let It Snow,12.864.951,129,,,,
-22,Heart Meet Break,10.685.309,2.335,,,,
-23,Home With You,9.958.166,1.820,,,,
-24,Stack It Up - Acoustic,9.644.297,431,,,,
-25,Say It All,7.526.670,2.621,,,,
-26,Tell Your Friends,7.243.970,1.614,,,,
-27,* You & I - Big Payno Remix,7.213.787,300,,,,
-28,* Drag Me Down (feat. LunchMoney Lewis) - Big Payno x AFTERHRS Remix,6.864.775,452,,,,
-29,Weekend,6.777.198,1.323,,,,
-30,Hips Don't Lie,6.701.492,1.253,,,,
-31,Both Ways,5.776.496,1.213,,,,
-32,Bedroom Floor - Cash Cash Remix,5.507.148,251,,,,
-33,* Polaroid - R3HAB Remix,5.287.604,194,,,,
-34,Rude Hours,5.155.746,1.012,,,,
-35,* Steal My Girl - Big Payno & Afterhrs Pool Party Remix,4.425.309,174,,,,
-36,* Midnight (feat. Liam Payne) (Rompasso Remix),3.708.305,170,,,,
-37,Bedroom Floor - Acoustic,3.641.607,245,,,,
-38,* Get Low - KUURO Remix,3.014.343,88,,,,
-39,Teardrops - Acoustic,2.573.204,1.499,,,,
-40,* Midnight (feat. Liam Payne) (Jack Wins Remix),2.145.828,161,,,,
-41,* Polaroid - CID & Jonas Blue Remix,1.658.052,50,,,,
-42,Bedroom Floor - NSG Remix,1.486.206,90,,,,
-43,* Midnight (feat. Liam Payne) (Alesso & ESH Remix),1.479.646,91,,,,
-44,* Polaroid - Zac Samuel Remix,1.178.997,86,,,,
-45,* Midnight (feat. Liam Payne) (Vicetone Remix),946.953,172,,,,
-46,Live Forever (With Cheat Codes) - R3HAB Remix,801.357,97,,,,
-47,* Midnight - Sylvain Armand & Kiko Franco Remix,721.795,52,,,,
-48,Sunshine - From the Motion Picture “Ron’s Gone Wrong” / Acoustic,681.956,194,,,,
-49,Sunshine - From the Motion Picture “Ron’s Gone Wrong’’ (Billen Ted Remix),544.374,91,,,,
-50,Bedroom Floor - London On Da Track Remix,541.693,42,,,,
-51,* Polaroid - HUGEL Remix,537.682,42,,,,
-52,* Polaroid - Nolan van Lith Remix,282.868,27,,,,
-53,Live Forever (with Cheat Codes) - 99 Souls Remix,273.294,27,,,,
-54,Live Forever (With Cheat Codes) - Mahalo Remix,258.961,37,,,,
-55,Live Forever (With Cheat Codes) - Dee Swan & Gregatron Remix,214.199,33,,,,
-56,* I Don't Care - Payno Vs. Afterhrs Remix,198.461,5,,,,
-57,* Midnight (feat. Liam Payne) (Magnificence Remix),188.718,35,,,,
->>>>>>> b99360b49daebb7d59fc17adfdd138118601ca90
+﻿Rank,Song Title,Streams,Daily
+1,Strip That Down (feat. Quavo),1113492578,135981
+2,For You (With Rita Ora),554258437,124519
+3,* Polaroid (With Jonas Blue & Lennon Stella),446777457,42859
+4,Familiar (With J. Balvin),298542247,22448
+5,* Get Low (With Zedd),221098695,15547
+6,* Midnight (feat. Liam Payne),216598524,18176
+7,Bedroom Floor,183876901,13155
+8,Stack It Up (feat. A Boogie Wit da Hoodie),122177852,14244
+9,All I Want (For Christmas),99281840,2354
+10,Naughty List (with Dixie),70394283,1188
+11,Strip That Down - Acoustic,63178821,3542
+12,Live Forever (With Cheat Codes),58072765,4461
+13,First Time,42158932,1526
+14,Sunshine - From the Motion Picture “Ron’s Gone Wrong”,29858914,6458
+15,Teardrops,27578308,15315
+16,Remember,27224826,11263
+17,* Polaroid - Acoustic,25379316,1670
+18,Strip That Down - Nevada Remix,15905376,1059
+19,Depend On It,13353906,2341
+20,Slow,13066716,3470
+21,Let It Snow Let It Snow Let It Snow,12864951,129
+22,Heart Meet Break,10685309,2335
+23,Home With You,9958166,1820
+24,Stack It Up - Acoustic,9644297,431
+25,Say It All,7526670,2621
+26,Tell Your Friends,7243970,1614
+27,* You & I - Big Payno Remix,7213787,300
+28,* Drag Me Down (feat. LunchMoney Lewis) - Big Payno x AFTERHRS Remix,6864775,452
+29,Weekend,6777198,1323
+30,Hips Don't Lie,6701492,1253
+31,Both Ways,5776496,1213
+32,Bedroom Floor - Cash Cash Remix,5507148,251
+33,* Polaroid - R3HAB Remix,5287604,194
+34,Rude Hours,5155746,1012
+35,* Steal My Girl - Big Payno & Afterhrs Pool Party Remix,4425309,174
+36,* Midnight (feat. Liam Payne) (Rompasso Remix),3708305,170
+37,Bedroom Floor - Acoustic,3641607,245
+38,* Get Low - KUURO Remix,3014343,88
+39,Teardrops - Acoustic,2573204,1499
+40,* Midnight (feat. Liam Payne) (Jack Wins Remix),2145828,161
+41,* Polaroid - CID & Jonas Blue Remix,1658052,50
+42,Bedroom Floor - NSG Remix,1486206,90
+43,* Midnight (feat. Liam Payne) (Alesso & ESH Remix),1479646,91
+44,* Polaroid - Zac Samuel Remix,1178997,86
+45,* Midnight (feat. Liam Payne) (Vicetone Remix),946953,172
+46,Live Forever (With Cheat Codes) - R3HAB Remix,801357,97
+47,* Midnight - Sylvain Armand & Kiko Franco Remix,721795,52
+48,Sunshine - From the Motion Picture “Ron’s Gone Wrong” / Acoustic,681956,194
+49,Sunshine - From the Motion Picture “Ron’s Gone Wrong’’ (Billen Ted Remix),544374,91
+50,Bedroom Floor - London On Da Track Remix,541693,42
+51,* Polaroid - HUGEL Remix,537682,42
+52,* Polaroid - Nolan van Lith Remix,282868,27
+53,Live Forever (with Cheat Codes) - 99 Souls Remix,273294,27
+54,Live Forever (With Cheat Codes) - Mahalo Remix,258961,37
+55,Live Forever (With Cheat Codes) - Dee Swan & Gregatron Remix,214199,33
+56,* I Don't Care - Payno Vs. Afterhrs Remix,198461,5
+57,* Midnight (feat. Liam Payne) (Magnificence Remix),188718,35
