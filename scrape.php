@@ -23,20 +23,16 @@ foreach ($artist_urls as $line) {
     }
 
     $context = stream_context_create(["ssl"=>["verify_peer"=>false,"verify_peer_name"=>false]]);
-    
+
     $html = file_get_contents($url, false, $context);
     if (!$html) { echo "Cannot load $artist_name<br>"; continue; }
 
     if (preg_match('/Last updated:\s*(\d{4})\/(\d{2})\/(\d{2})/i', $html, $matches)) {
-
         $year  = $matches[1];
         $month = $matches[2];
         $day   = $matches[3];
-
         $chart_date = "$year-$month-$day";
-
         echo "Detected chart date: $chart_date<br>";
-
     } else { 
         echo "Date not found for $artist_name<br>"; 
         continue; 
@@ -65,11 +61,26 @@ foreach ($artist_urls as $line) {
         if ($cols->length < 3) continue;
         $link = $cols[0]->getElementsByTagName('a');
         if ($link->length === 0) continue;
-        $title = trim($link->item(0)->nodeValue);
+
+        // Titel auslesen – inklusive Sternchen oder Hochzahlen
+        $titleNode = $link->item(0);
+        $title = '';
+        if ($titleNode) {
+            foreach ($titleNode->childNodes as $child) {
+                if ($child->nodeType === XML_TEXT_NODE) {
+                    $title .= $child->nodeValue;
+                } else if ($child->nodeType === XML_ELEMENT_NODE && strtolower($child->nodeName) === 'sup') {
+                    // Sternchen oder Hochzahlen aus <sup> behalten
+                    $title .= trim($child->textContent);
+                }
+            }
+            $title = trim($title);
+        }
+
         $streams = (int) preg_replace('/[^0-9]/', '', $cols[1]->nodeValue);
         $daily   = (int) preg_replace('/[^0-9]/', '', $cols[2]->nodeValue);
         $rank = count($today_data) + 1;
-        $today_data[$title] = ['rank' => $rank, 'streams' => $streams, 'daily' => $daily];
+        $today_data[] = ['rank' => $rank, 'title' => $title, 'streams' => $streams, 'daily' => $daily];
     }
 
     if (count($today_data) === 0) {
@@ -80,11 +91,12 @@ foreach ($artist_urls as $line) {
     // CSV erzeugen
     $filename = $csv_path . DIRECTORY_SEPARATOR . "$artist_name $chart_date.csv";
     $csv_rows = [["Rank", "Song Title", "Streams", "Daily"]];
-    foreach ($today_data as $title => $data) {
-        $csv_rows[] = [$data['rank'], $title, $data['streams'], $data['daily']];
+    foreach ($today_data as $data) {
+        $csv_rows[] = [$data['rank'], $data['title'], $data['streams'], $data['daily']];
     }
 
     $fp = fopen($filename, 'w');
+    fwrite($fp, "\xEF\xBB\xBF"); // UTF-8 BOM für Excel
     foreach ($csv_rows as $row) fputcsv($fp, $row);
     fclose($fp);
 

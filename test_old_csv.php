@@ -1,14 +1,21 @@
 <?php
-$csv_file = 'C:/xampp/htdocs/SpotifyStreams/Harry Styles 2026-02-26.csv'; // alte CSV wählen
+$csv_file = 'C:/xampp/htdocs/SpotifyStreams/Leony 2026-03-22.csv'; // alte CSV wählen
 
-// Titel normalisieren (wie in deinem Hauptcode)
+// Titel normalisieren (inklusive * vorne)
 function normalizeTitle($title) {
     $title = trim($title);
+    $star = '';
+    if (str_starts_with($title, '*')) {
+        $star = '*';
+        $title = ltrim($title, '* ');
+    }
+
     if(class_exists('Normalizer')) $title = Normalizer::normalize($title, Normalizer::FORM_C);
     $title = str_replace(["'", "\u{2019}", "`"], "'", $title);
     $title = preg_replace('/[\p{Cc}\p{Cf}]+/u','',$title);
     $title = preg_replace('/\s+/u',' ',$title);
-    return trim($title);
+
+    return $star . trim($title);
 }
 
 // CSV einlesen
@@ -36,10 +43,10 @@ function readOldCsv($file){
     if($colDaily === false) $colDaily = 3;
 
     while(($row=fgetcsv($handle)) !== false){
-        $title = isset($row[$colTitle]) ? trim($row[$colTitle]) : '';
-        if($title === '' || strtolower($title) === 'song title') continue;
+        $rawTitle = isset($row[$colTitle]) ? trim($row[$colTitle]) : '';
+        if($rawTitle === '' || strtolower($rawTitle) === 'song title') continue;
 
-        $key = normalizeTitle($title);
+        $key = normalizeTitle($rawTitle);
 
         $rank = $hasRankColumn && isset($row[$colRank]) && is_numeric($row[$colRank])
                 ? (int)$row[$colRank]
@@ -50,7 +57,7 @@ function readOldCsv($file){
 
         $data[] = [
             'rank' => $rank,
-            'title' => $title,
+            'title' => $key, // jetzt mit * vorne, falls vorhanden
             'streams' => $streams,
             'daily' => $daily
         ];
