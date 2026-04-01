@@ -1,14 +1,11 @@
 <?php
 $csv_path = 'C:/xampp/htdocs/SpotifyStreams';
 
-// Künstler automatisch ermitteln
+// Künstler automatisch aus Ordnern ermitteln
 $artists = [];
-foreach (glob($csv_path . DIRECTORY_SEPARATOR . '*.csv') as $file) {
-    $filename = basename($file, '.csv'); 
-    $parts = explode(' ', $filename);
-    array_pop($parts); // Datum entfernen
-    $artist_name = implode(' ', $parts);
-    if (!in_array($artist_name, $artists)) $artists[] = $artist_name;
+foreach (glob($csv_path . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR) as $dir) {
+    $artist_name = basename($dir);
+    $artists[] = $artist_name;
 }
 sort($artists);
 
@@ -36,7 +33,7 @@ function normalizeKey($title) {
     // Mehrfach-Leerzeichen auf 1 reduzieren
     $title = preg_replace('/\s+/u',' ',$title);
 
-    return $title; // NICHT strtolower(), NICHT * entfernen
+    return $title;
 }
 
 // CSV einlesen
@@ -66,18 +63,16 @@ function readCsvFile($file){
         $streams = isset($row[$colStreams]) ? (int) preg_replace('/[^0-9]/','',$row[$colStreams]) : 0;
         $daily   = isset($row[$colDaily])   ? (int) preg_replace('/[^0-9]/','',$row[$colDaily])   : 0;
 
-        // Eindeutigen Key für interne Vergleiche
         $unique_key = normalizeKey($title) . '###' . $streams . '###' . $daily;
 
         $data[$unique_key] = [
-            'original_title' => $title, // für Anzeige
+            'original_title' => $title,
             'streams' => $streams,
             'daily' => $daily
         ];
     }
     fclose($handle);
 
-    // Nach Streams absteigend sortieren
     usort($data, function($a,$b){ return $b['streams'] <=> $a['streams']; });
 
     $rank = 1;
@@ -106,7 +101,8 @@ function selectLatestCsvWithData(array $files): ?string {
 // Alle Daten + Vergleich
 function getCurrentArtistStats($csv_path, $artist, $date = null) {
     $safe_artist = preg_replace('/[\/:*?"<>|]/','',$artist);
-    $files = glob($csv_path . DIRECTORY_SEPARATOR . $safe_artist . ' *.csv');
+    $artist_folder = $csv_path . DIRECTORY_SEPARATOR . $safe_artist;
+    $files = glob($artist_folder . DIRECTORY_SEPARATOR . '*.csv');
 
     if (!$files) return ['data'=>[],'display_date'=>'','previous_date'=>'','available_dates'=>[]];
 
@@ -115,7 +111,7 @@ function getCurrentArtistStats($csv_path, $artist, $date = null) {
     });
 
     $selected_file = $date
-        ? $csv_path . DIRECTORY_SEPARATOR . "$safe_artist $date.csv"
+        ? $artist_folder . DIRECTORY_SEPARATOR . "$date.csv"
         : selectLatestCsvWithData($files);
 
     if(!$selected_file || !file_exists($selected_file)){
@@ -131,7 +127,6 @@ function getCurrentArtistStats($csv_path, $artist, $date = null) {
     $selectedDate = extractDateFromFilename($selected_file);
     $display_date = $selectedDate ? date('d/m/Y', strtotime($selectedDate)) : '';
 
-    // vorherige CSV
     $previous_file = null;
     foreach($files as $f){
         $d = extractDateFromFilename($f);
