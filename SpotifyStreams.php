@@ -65,7 +65,7 @@ function readCsvFile($file){
 
         $unique_key = normalizeKey($title) . '###' . $streams . '###' . $daily;
 
-        $data[$unique_key] = [
+        $data[] = [
             'original_title' => $title,
             'streams' => $streams,
             'daily' => $daily
@@ -150,7 +150,7 @@ function getCurrentArtistStats($csv_path, $artist, $date = null) {
     foreach($today_data as $row){
         $prev = null;
         foreach($previous_data as $p){
-            if($p['original_title'] === $row['original_title']){
+            if(normalizeKey($p['original_title']) === normalizeKey($row['original_title'])){
                 $prev = $p;
                 break;
             }
@@ -279,7 +279,7 @@ if(isset($_POST['interpretDropdown'])){
         <?php foreach($all_record_arr as $rec): ?>
         <tr>
             <td><?= $rec[0] ?></td>
-            <td><?= htmlspecialchars($rec[1]) ?></td>
+            <td><?= $rec[1] ?></td>
             <td><?= is_numeric($rec[2]) ? number_format($rec[2],0,',','.') : $rec[2] ?></td>
             <td><?= is_numeric($rec[3]) ? number_format($rec[3],0,',','.') : $rec[3] ?></td>
             <td><?= is_numeric($rec[4]) ? number_format($rec[4],0,',','.') : $rec[4] ?></td>

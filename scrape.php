@@ -71,15 +71,13 @@ foreach ($artist_urls as $line) {
         $link = $cols[0]->getElementsByTagName('a');
         if ($link->length === 0) continue;
 
-        $titleNode = $link->item(0);
-        $title = '';
-        if ($titleNode) {
+       $titleNode = $link->item(0);
+       $title = '';
+       if ($titleNode) {
             foreach ($titleNode->childNodes as $child) {
-                if ($child->nodeType === XML_TEXT_NODE) {
-                    $title .= $child->nodeValue;
-                } else if ($child->nodeType === XML_ELEMENT_NODE && strtolower($child->nodeName) === 'sup') {
-                    $title .= trim($child->textContent);
-                }
+                // Alles als Text nehmen, inkl. Sup, span etc.
+                $text = trim($child->textContent);
+                if ($text !== '') $title .= $text;
             }
             $title = trim($title);
         }
