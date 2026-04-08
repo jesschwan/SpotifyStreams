@@ -1,0 +1,13 @@
+/* General page */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    text-align: left;
+    padding-top: 25px;
+}
+
+/* Table */
+table, th, td {
+  border: 1px solid black;
+  padding: 1px;
+}
