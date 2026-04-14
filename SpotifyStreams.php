@@ -146,31 +146,22 @@ function getCurrentArtistStats($csv_path, $artist, $date = null) {
     $today_data = readCsvFile($selected_file);
     $previous_data = $previous_file ? readCsvFile($previous_file) : [];
 
-    // 🔥 vorherige Songs nach Titel gruppieren
+    // 🔥 Eindeutige Keys: Rank + normalisierter Titel
     $previous_map = [];
     foreach ($previous_data as $p) {
-        $key = normalizeKey($p['original_title']);
-        $previous_map[$key][] = $p;
+        $key = $p['rank'] . '_' . normalizeKey($p['original_title']);
+        $previous_map[$key] = $p;
     }
 
     $all_record_arr = [];
 
     foreach($today_data as $row){
-
-        $prev = null;
-        $current_key = normalizeKey($row['original_title']);
-
-        if(isset($previous_map[$current_key])){
-            foreach($previous_map[$current_key] as $candidate){
-                if($prev === null || abs($candidate['rank'] - $row['rank']) < abs($prev['rank'] - $row['rank'])){
-                    $prev = $candidate;
-                }
-            }
-        }
-
         $streams_today = $row['streams'];
         $daily_today   = $row['daily'];
         $rank          = $row['rank'];
+
+        $current_key = $rank . '_' . normalizeKey($row['original_title']);
+        $prev = $previous_map[$current_key] ?? null;
 
         if($prev){
             $diff_streams = $streams_today - $prev['streams'];
@@ -183,7 +174,6 @@ function getCurrentArtistStats($csv_path, $artist, $date = null) {
             } else {
                 $rank_change = '–';
             }
-
         } else {
             $diff_streams = '-';
             $diff_daily   = '-';

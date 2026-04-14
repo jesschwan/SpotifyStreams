@@ -6,9 +6,18 @@ $csv_path = __DIR__;
 $artist_urls = file($artist_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 if (!$artist_urls) die("Keine Künstler in artist_urls.txt gefunden!");
 
+// Titel normalisieren (für CSV)
+function normalizeTitleForCsv($title) {
+    $title = trim($title);
+    if(class_exists('Normalizer')) $title = Normalizer::normalize($title, Normalizer::FORM_C);
+    // Sonderzeichen entfernen außer Buchstaben, Zahlen, Leerzeichen, Bindestrich, Klammern
+    $title = preg_replace('/[^\p{L}\p{N}\s\-\(\)]/u', '', $title);
+    $title = preg_replace('/\s+/u',' ',$title); // Mehrfach-Leerzeichen reduzieren
+    return $title;
+}
+
 // 👉 Layout starten
 echo "<table><tr><td valign='top'>";
-
 $count = 0;
 
 // Durch alle Künstler iterieren
@@ -22,10 +31,7 @@ foreach ($artist_urls as $line) {
 
     // Künstlerordner erstellen
     $artist_folder = $csv_path . DIRECTORY_SEPARATOR . $artist_name;
-    if (!is_dir($artist_folder)) {
-        mkdir($artist_folder, 0777, true);
-        echo "Ordner erstellt: $artist_folder<br>";
-    }
+    if (!is_dir($artist_folder)) mkdir($artist_folder, 0777, true);
 
     // Letzte CSV prüfen
     $existing_files = glob($artist_folder . DIRECTORY_SEPARATOR . '*.csv');
@@ -37,36 +43,18 @@ foreach ($artist_urls as $line) {
     }
 
     // HTML abrufen
-    $context = stream_context_create([
-        "ssl" => ["verify_peer"=>false, "verify_peer_name"=>false]
-    ]);
+    $context = stream_context_create(["ssl" => ["verify_peer"=>false, "verify_peer_name"=>false]]);
     $html = @file_get_contents($url, false, $context);
-
-    if (!$html) {
-        echo "Cannot load $artist_name<br><br>";
-        continue;
-    }
+    if (!$html) { echo "Cannot load $artist_name<br><br>"; continue; }
 
     // Chart-Datum extrahieren
     if (preg_match('/Last updated:\s*(\d{4})\/(\d{2})\/(\d{2})/i', $html, $matches)) {
         $chart_date = "{$matches[1]}-{$matches[2]}-{$matches[3]}";
         echo "Detected chart date: $chart_date<br>";
-    } else {
-        echo "Date not found<br><br>";
-        continue;
-    }
+    } else { echo "Date not found<br><br>"; continue; }
 
     // Bereits vorhandene CSV überspringen
-    if ($last_csv_date && strtotime($chart_date) <= strtotime($last_csv_date)) {
-        echo "CSV exists ($last_csv_date)<br><br>";
-        $count++;
-
-        if ($count % 5 == 0) {
-            echo "</td><td valign='top'>";
-        }
-
-        continue;
-    }
+    if ($last_csv_date && strtotime($chart_date) <= strtotime($last_csv_date)) { $count++; continue; }
 
     // HTML parsen
     $doc = new DOMDocument();
@@ -76,21 +64,10 @@ foreach ($artist_urls as $line) {
 
     $xpath = new DOMXPath($doc);
     $rows = $xpath->query("//table[@class='addpos sortable']/tbody/tr");
-
-    if (!$rows || $rows->length === 0) {
-        echo "No rows<br><br>";
-        $count++;
-
-        if ($count % 5 == 0) {
-            echo "</td><td valign='top'>";
-        }
-
-        continue;
-    }
+    if (!$rows || $rows->length === 0) { $count++; continue; }
 
     // Song-Daten auslesen
     $today_data = [];
-
     foreach ($rows as $row) {
         $cols = $row->getElementsByTagName('td');
         if ($cols->length < 3) continue;
@@ -100,14 +77,13 @@ foreach ($artist_urls as $line) {
 
         $titleNode = $link->item(0);
         $title = '';
-
         if ($titleNode) {
             foreach ($titleNode->childNodes as $child) {
                 $text = trim($child->textContent);
                 if ($text !== '') $title .= $text;
             }
-            $title = trim($title);
         }
+        $title = normalizeTitleForCsv($title);
 
         $streams = (int) preg_replace('/[^0-9]/', '', $cols[1]->nodeValue);
         $daily   = (int) preg_replace('/[^0-9]/', '', $cols[2]->nodeValue);
@@ -121,42 +97,21 @@ foreach ($artist_urls as $line) {
         ];
     }
 
-    if (count($today_data) === 0) {
-        echo "No songs<br><br>";
-        $count++;
-
-        if ($count % 5 == 0) {
-            echo "</td><td valign='top'>";
-        }
-
-        continue;
-    }
+    if (count($today_data) === 0) { $count++; continue; }
 
     // CSV speichern
     $filename = $artist_folder . DIRECTORY_SEPARATOR . "$chart_date.csv";
-
     $fp = fopen($filename, 'w');
-    fwrite($fp, "\xEF\xBB\xBF");
-
+    fwrite($fp, "\xEF\xBB\xBF"); // UTF-8 BOM
     fputcsv($fp, ["Rank", "Song Title", "Streams", "Daily"]);
-
-    foreach ($today_data as $data) {
-        fputcsv($fp, [$data['rank'], $data['title'], $data['streams'], $data['daily']]);
-    }
-
+    foreach ($today_data as $data) fputcsv($fp, [$data['rank'], $data['title'], $data['streams'], $data['daily']]);
     fclose($fp);
 
     echo "CSV created ($chart_date)<br><br>";
-
     $count++;
-
-    // 👉 Nach 5 Künstlern neue Spalte
-    if ($count % 5 == 0) {
-        echo "</td><td valign='top'>";
-    }
+    if ($count % 5 == 0) echo "</td><td valign='top'>";
 }
 
-// 👉 Tabelle schließen
 echo "</td></tr></table>";
 ?>
 
