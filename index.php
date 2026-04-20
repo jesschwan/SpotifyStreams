@@ -149,7 +149,7 @@ function getCurrentArtistStats($csv_path, $artist, $date = null) {
     // 🔥 Eindeutige Keys: Rank + normalisierter Titel
     $previous_map = [];
     foreach ($previous_data as $p) {
-        $key = $p['rank'] . '_' . normalizeKey($p['original_title']);
+        $key = sha1($p['original_title']);
         $previous_map[$key] = $p;
     }
 
@@ -160,7 +160,7 @@ function getCurrentArtistStats($csv_path, $artist, $date = null) {
         $daily_today   = $row['daily'];
         $rank          = $row['rank'];
 
-        $current_key = $rank . '_' . normalizeKey($row['original_title']);
+        $current_key = sha1($row['original_title']);
         $prev = $previous_map[$current_key] ?? null;
 
         if($prev){
@@ -284,7 +284,7 @@ if(isset($_POST['interpretDropdown'])){
         <?php foreach($all_record_arr as $rec): ?>
         <tr>
             <td><?= $rec[0] ?></td>
-            <td><?= $rec[1] ?></td>
+            <td><?= htmlspecialchars($rec[1], ENT_QUOTES, 'UTF-8') ?></td>
             <td><?= is_numeric($rec[2]) ? number_format($rec[2],0,',','.') : $rec[2] ?></td>
             <td><?= is_numeric($rec[3]) ? number_format($rec[3],0,',','.') : $rec[3] ?></td>
             <td><?= is_numeric($rec[4]) ? number_format($rec[4],0,',','.') : $rec[4] ?></td>

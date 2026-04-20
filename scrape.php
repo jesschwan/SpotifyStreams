@@ -7,12 +7,13 @@ $artist_urls = file($artist_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
 if (!$artist_urls) die("Keine Künstler in artist_urls.txt gefunden!");
 
 // Titel normalisieren (für CSV)
+// ✅ FIX: Keine Sonderzeichen werden mehr entfernt
 function normalizeTitleForCsv($title) {
     $title = trim($title);
-    if(class_exists('Normalizer')) $title = Normalizer::normalize($title, Normalizer::FORM_C);
-    // Sonderzeichen entfernen außer Buchstaben, Zahlen, Leerzeichen, Bindestrich, Klammern
-    $title = preg_replace('/[^\p{L}\p{N}\s\-\(\)]/u', '', $title);
-    $title = preg_replace('/\s+/u',' ',$title); // Mehrfach-Leerzeichen reduzieren
+    if (class_exists('Normalizer')) {
+        $title = Normalizer::normalize($title, Normalizer::FORM_C);
+    }
+    // ❗ KEINE Zeichenentfernung mehr
     return $title;
 }
 
@@ -43,7 +44,9 @@ foreach ($artist_urls as $line) {
     }
 
     // HTML abrufen
-    $context = stream_context_create(["ssl" => ["verify_peer"=>false, "verify_peer_name"=>false]]);
+    $context = stream_context_create([
+        "ssl" => ["verify_peer" => false, "verify_peer_name" => false]
+    ]);
     $html = @file_get_contents($url, false, $context);
     if (!$html) { echo "Cannot load $artist_name<br><br>"; continue; }
 
@@ -54,7 +57,10 @@ foreach ($artist_urls as $line) {
     } else { echo "Date not found<br><br>"; continue; }
 
     // Bereits vorhandene CSV überspringen
-    if ($last_csv_date && strtotime($chart_date) <= strtotime($last_csv_date)) { $count++; continue; }
+    if ($last_csv_date && strtotime($chart_date) <= strtotime($last_csv_date)) {
+        $count++;
+        continue;
+    }
 
     // HTML parsen
     $doc = new DOMDocument();
@@ -83,6 +89,8 @@ foreach ($artist_urls as $line) {
                 if ($text !== '') $title .= $text;
             }
         }
+
+        // ✅ Aufruf bleibt – jetzt ohne zerstörerische Effekte
         $title = normalizeTitleForCsv($title);
 
         $streams = (int) preg_replace('/[^0-9]/', '', $cols[1]->nodeValue);
@@ -90,10 +98,10 @@ foreach ($artist_urls as $line) {
         $rank = count($today_data) + 1;
 
         $today_data[] = [
-            'rank' => $rank,
-            'title' => $title,
+            'rank'    => $rank,
+            'title'   => $title,
             'streams' => $streams,
-            'daily' => $daily
+            'daily'   => $daily
         ];
     }
 
@@ -104,7 +112,9 @@ foreach ($artist_urls as $line) {
     $fp = fopen($filename, 'w');
     fwrite($fp, "\xEF\xBB\xBF"); // UTF-8 BOM
     fputcsv($fp, ["Rank", "Song Title", "Streams", "Daily"]);
-    foreach ($today_data as $data) fputcsv($fp, [$data['rank'], $data['title'], $data['streams'], $data['daily']]);
+    foreach ($today_data as $data) {
+        fputcsv($fp, [$data['rank'], $data['title'], $data['streams'], $data['daily']]);
+    }
     fclose($fp);
 
     echo "CSV created ($chart_date)<br><br>";
@@ -116,10 +126,10 @@ echo "</td></tr></table>";
 ?>
 
 <!DOCTYPE html>
-    <html lang="de">
-    <head>
-        <meta charset="UTF-8">
-        <title>Übersicht vorhandener CSV-Dateien</title>
-        <link rel="stylesheet" href="styles_scrape.css">
-    </head>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Übersicht vorhandener CSV-Dateien</title>
+    <link rel="stylesheet" href="styles_scrape.css">
+</head>
 </html>
